@@ -39,4 +39,8 @@ public class Paciente {
 	public static void añadirPaciente() {
 
 	}
+	
+	public String getNombre() {
+		return nombre;
+	}
 }

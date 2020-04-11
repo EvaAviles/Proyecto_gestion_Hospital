@@ -10,12 +10,12 @@ import model.Medico;
 import model.MedicoAdministrador;
 import model.Paciente;
 import model.Usuario;
+import java.util.ArrayList;
 
 public class Sistema {
 
 	//Relaciones
 	private Alergia listaAlergias[];
-	private Paciente listaPacientes[];
 	private Enfermero listaEnfermeros[];
 	private Usuario listaUsuarios[];
 	private Medico listaMedicos[];
@@ -24,7 +24,8 @@ public class Sistema {
 	private Habitacion listaHabitaciones[];
 	private Medicamento listaMedicamentos[];
 	private Inventario inventarioMedicamentos[];
-	
+	private Arraylist <Paciente>listaPacientes;
+
 	//Métodos
 	public static void importarInformacion() {
 
@@ -38,8 +39,21 @@ public class Sistema {
 
 	}
 
-	public static void buscarPaciente() {
+	public static Paciente buscarPacienteNombre(String nombre) {
 
+		//Hago un iterador para poder recorrer mi ArrayList	
+		boolean busqueda= false;	
+		
+		//Recorro el arrayList		
+		for(int i = 0 ; (i <listaPacientes.size()) && (busqueda==false);i++) {
+			if(nombre.contentEquals(listaPacientes.get(i).getNombre())) {
+				busqueda=true;
+				return listaPacientes.get(i);
+			} 
+			else {
+				System.out.println("No se encuentra ningún paciente con el nombre " +nombre + ".");    
+			}
+		}
 	}
 
 	public static void buscarMedicamento() {
