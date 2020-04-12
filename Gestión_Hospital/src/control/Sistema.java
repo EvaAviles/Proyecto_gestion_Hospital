@@ -24,7 +24,7 @@ public class Sistema {
 	private Habitacion listaHabitaciones[];
 	private Medicamento listaMedicamentos[];
 	private Inventario inventarioMedicamentos[];
-	private Arraylist <Paciente>listaPacientes;
+	private ArrayList <Paciente>listaPacientes;
 
 	//Métodos
 	public static void importarInformacion() {
@@ -70,6 +70,7 @@ public class Sistema {
 
 	//MAIN
 	public static void main(String[] args) {
+		
 
 
 	}

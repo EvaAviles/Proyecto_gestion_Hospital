@@ -27,6 +27,7 @@ public class Paciente {
 	private Medico medicoCabecera;
 	
 	//Métodos
+	
 	public static void editarFichaPaciente() {
 
 	}
