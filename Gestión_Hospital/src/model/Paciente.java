@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Paciente {
 
@@ -14,9 +13,9 @@ public class Paciente {
 	private String dni;
 	private int edad;
 	private CharSequence fechaNacimiento;
-	private char sexo;// H o M
-	private Double altura;//en cm
-	private Double peso;//en kg
+	private String sexo;// H o M
+	private int altura;//en cm
+	private int peso;//en kg
 	private String grupoSanguineo;
 	private String historialMedico;
 	private String observacionesNotas;
@@ -74,22 +73,22 @@ public class Paciente {
 	public void setFechaNacimiento(CharSequence fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
-	public char getSexo() {
+	public String getSexo() {
 		return sexo;
 	}
-	public void setSexo(char sexo) {
+	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
-	public Double getAltura() {
+	public int getAltura() {
 		return altura;
 	}
-	public void setAltura(Double altura) {
+	public void setAltura(int altura) {
 		this.altura = altura;
 	}
-	public Double getPeso() {
+	public int getPeso() {
 		return peso;
 	}
-	public void setPeso(Double peso) {
+	public void setPeso(int peso) {
 		this.peso = peso;
 	}
 	public String getGrupoSanguineo() {
@@ -174,15 +173,13 @@ public class Paciente {
 	public static void editarFichaPaciente() {
 	}
 	
-	public static void verFichaPaciente() {
+	public static void mostrarFichaPaciente() {
 		
 	}
 	public static void exportarFichaPaciente() {
 		
 	}
-	public static void añadirPaciente() {
-		
-	}
+	
 	
 	
 }
