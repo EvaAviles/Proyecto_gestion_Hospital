@@ -159,6 +159,10 @@ public class Sistema {
 		Paciente p1= new Paciente("Ramon");
 		listaPacientes.add(p1);
 		buscarPacienteNombre("Monica");
+		//Prueba calcular edad a partir de la fecha de nacimiento
+		p1.setFechaNacimiento("13/04/2010");
+		p1.actualizarEdad();
+		System.out.println("Edad: "+ p1.getEdad());
 		
 		
 		

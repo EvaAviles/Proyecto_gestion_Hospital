@@ -1,5 +1,8 @@
 package model;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -10,15 +13,17 @@ public class Paciente {
 	private String apellido2;
 	private String dni;
 	private int edad;
-	private Date fechaNacimiento;
-	private char sexo;
-	private Double altura;
-	private Double peso;
+	private CharSequence fechaNacimiento;
+	private char sexo;// H o M
+	private Double altura;//en cm
+	private Double peso;//en kg
 	private String grupoSanguineo;
 	private String historialMedico;
 	private String observacionesNotas;
 	private String antecedentesFamiliares;
+	private String telefono;
 
+	
 	//Relaciones
 	private Enfermero enfermero;
 	private ArrayList <Alergia> listaAlergias= new ArrayList<>();
@@ -27,9 +32,11 @@ public class Paciente {
 	private ArrayList <IngresoHospitalario> listaIngresos= new ArrayList<>();
 	private Medico medicoCabecera;
 	
+	//Constructores de Paciente
 	public Paciente(String string) {
 		this.nombre=string;
 	}
+	
 	//Getters y setters
 	public String getNombre() {
 		return nombre;
@@ -61,10 +68,10 @@ public class Paciente {
 	public void setEdad(int edad) {
 		this.edad = edad;
 	}
-	public Date getFechaNacimiento() {
+	public CharSequence getFechaNacimiento() {
 		return fechaNacimiento;
 	}
-	public void setFechaNacimiento(Date fechaNacimiento) {
+	public void setFechaNacimiento(CharSequence fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 	public char getSexo() {
@@ -145,19 +152,36 @@ public class Paciente {
 	public void setMedicoCabecera(Medico medicoCabecera) {
 		this.medicoCabecera = medicoCabecera;
 	}
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+	
+	public void actualizarEdad() {
+		//A partir de la fecha de Nacimiento calculamos la edad, de esta forma podemos ir actualizando.
+		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		LocalDate fechaNac = LocalDate.parse((CharSequence) fechaNacimiento, fmt);
+		LocalDate ahora = LocalDate.now();
+		//Comparamos la fecha de nacimiento con la fecha actual
+		Period periodo = Period.between(fechaNac, ahora);
+		setEdad(periodo.getYears());
+	}
 	
 	//Métodos
 	public static void editarFichaPaciente() {
 	}
 	
 	public static void verFichaPaciente() {
-
+		
 	}
 	public static void exportarFichaPaciente() {
-
+		
 	}
 	public static void añadirPaciente() {
-
+		
 	}
 	
 	
