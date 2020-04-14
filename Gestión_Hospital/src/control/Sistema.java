@@ -16,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+//prueba 2 claudiaS
 public class Sistema {
 
 	//Relaciones
@@ -146,7 +147,7 @@ public class Sistema {
 					i=listaPacientes.size();	
 				} 
 			}
-		}
+		} //
 		else if(opcion.toLowerCase().equals("habitacion")) {     //buscar paciente por habitación
 			for (int i = 0 ; i <listaPacientes.size();i++) {				 
 				if(dato.equals(Integer.toString(listaPacientes.get(i).getHabitacion()))) {
@@ -318,7 +319,7 @@ public class Sistema {
 		System.out.println("Edad: "+ p1.getEdad());
 		//Prueba importar Pacientes desde una plantilla csv.
 		importarPacientesPlantillaCSV("pacientesNuevos.csv");
-		
+
 
 
 
