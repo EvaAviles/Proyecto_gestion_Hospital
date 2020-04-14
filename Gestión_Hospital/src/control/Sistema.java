@@ -27,7 +27,7 @@ public class Sistema {
 	
 	//Métodos
 	public static void importarInformacion() {
-
+		// Prueba	
 	}
 
 	public static void avisoBajoInventario() {
