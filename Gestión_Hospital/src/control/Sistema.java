@@ -28,7 +28,7 @@ public class Sistema {
 	private ArrayList <Habitacion> listaHabitaciones= new ArrayList<>();
 	private ArrayList <Medicamento> listaMedicamentos= new ArrayList<>();
 	private Inventario inventarioMedicamentos;
-	private static ArrayList <Paciente>listaPacientes= new ArrayList<>();
+	public static ArrayList <Paciente>listaPacientes;
 	private static int contadorPacientesID=0;
 
 	//Getters y setters
@@ -125,25 +125,40 @@ public class Sistema {
 
 	}
 
-	public static Paciente buscarPacienteNombre(String nombre) {//Da error porque el return no devuelve realmente un paciente
+	//Método buscar paciente
+	public static int buscarPaciente(String dato, String opcion) {	  /*como dato será el que me manda por teclado el usuario
+                                                                        como opción será nombre, apellido o habitación*/
+		int posicion=-1;
 
-		//Creamos un boolean para parar la búesqueda cuando encontremos al paciente
-		boolean busqueda= false;	
-		int posicion=0;
-		//Recorro el arrayList		
-		for(int i = 0 ; (i <listaPacientes.size()) && (busqueda==false);i++) {
-			if(nombre.contentEquals(listaPacientes.get(i).getNombre())) {
-				busqueda=true;
-				posicion=i;
-				System.out.println("exito");
-			} 
-			else {
-				System.out.println("No se encuentra ningún paciente con el nombre " +nombre + ".");    
+		//opción buscar paciente por nombre
+		if (opcion.toLowerCase().equals("nombre")) {   //por si acaso, cambio lo que me manda el usuario a minúsculas
+			for (int i = 0 ; i <listaPacientes.size();i++) {    //recorro el ArrayList
+				if(dato.equals(listaPacientes.get(i).getNombre())) {    //si el nombre es igual a alguno del array, me da la posición
+					posicion=i;
+					i=listaPacientes.size();	
+				} 
+			}
+		} 
+		else if(opcion.toLowerCase().equals("apellido")) {       //Caso buscar paciente por apellido
+			for (int i = 0 ; i <listaPacientes.size();i++) {
+				if(dato.equals(listaPacientes.get(i).getApellido1())) {
+					posicion=i;
+					i=listaPacientes.size();	
+				} 
 			}
 		}
-		return listaPacientes.get(posicion);
-
+		else if(opcion.toLowerCase().equals("habitacion")) {     //buscar paciente por habitación
+			for (int i = 0 ; i <listaPacientes.size();i++) {				 
+				if(dato.equals(Integer.toString(listaPacientes.get(i).getHabitacion()))) {
+					posicion=i;
+					i=listaPacientes.size();	
+				} 
+			}
+		}
+		return posicion;
 	}
+
+
 
 	public static void buscarMedicamento() {
 
@@ -222,7 +237,7 @@ public class Sistema {
 		}
 		return salida;
 	}
-	
+
 	public static int convertirStringInt(String s) {
 		String numCadena = s; 
 		int numEntero = Integer. parseInt(numCadena);
@@ -268,20 +283,45 @@ public class Sistema {
 	public static void main(String[] args) {
 
 		//Pruba buscar Paciente
-		Paciente p1= new Paciente("Ramon");
-		listaPacientes.add(p1);
-		buscarPacienteNombre("Monica");
+		listaPacientes= new ArrayList<Paciente>();
+		Paciente persona1= new Paciente ("Olga","Moreno", 12, 'M',1);
+		listaPacientes.add(persona1);
+		Paciente persona2= new Paciente ("Niza","Albo", 12, 'M',2);
+		listaPacientes.add(persona2);
+		String nombre;
+		String apellido;
+		int habitacion;
+		Scanner teclado= new Scanner (System.in);
+
+		//Menú para buscar paciente; está a medio hacer, es solo de prueba, tengo que hacer un switch de casos bien hecho. 
+		switch() {
+		case  "nombre":
+			System.out.println("Introduzca el nombre que desea buscar: ");
+			nombre= teclado.nextLine();
+			System.out.println(buscarPaciente(nombre, "nombre"));
+			break;
+		case "apellido":
+			System.out.println("Introduzca el apellido que desea buscar: ");
+			apellido= teclado.nextLine();
+			System.out.println(buscarPaciente(apellido, "apellido"));
+			break;
+		case "habitación":
+			System.out.println("Introduzca la habitación que desea buscar: ");
+			habitacion= teclado.nextInt();
+			System.out.println(buscarPaciente(Integer.toString(habitacion), "HABITACION"));
+			break;	
+		}
+
 		//Prueba calcular edad a partir de la fecha de nacimiento
 		p1.setFechaNacimiento("13/04/2010");
 		p1.actualizarEdad();
 		System.out.println("Edad: "+ p1.getEdad());
 		//Prueba importar Pacientes desde una plantilla csv.
 		importarPacientesPlantillaCSV("pacientesNuevos.csv");
-		buscarPacienteNombre("IGNACIO");
-		System.out.println(listaPacientes.size());
 		
-		
-		
+
+
+
 
 
 
