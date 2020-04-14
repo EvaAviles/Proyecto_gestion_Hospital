@@ -30,6 +30,7 @@ public class Paciente {
 	private ArrayList <Receta> listaRecetas= new ArrayList<>();
 	private ArrayList <IngresoHospitalario> listaIngresos= new ArrayList<>();
 	private Medico medicoCabecera;
+	private Habitacion habitacionActual;
 	
 	//Constructores de Paciente
 	public Paciente(String string) {
@@ -169,6 +170,14 @@ public class Paciente {
 		setEdad(periodo.getYears());
 	}
 	
+	public Habitacion getHabitacionActual() {
+		return habitacionActual;
+	}
+
+	public void setHabitacionActual(Habitacion habitacionActual) {
+		this.habitacionActual = habitacionActual;
+	}
+	
 	//Métodos
 	public static void editarFichaPaciente() {
 	}
@@ -179,6 +188,8 @@ public class Paciente {
 	public static void exportarFichaPaciente() {
 		
 	}
+
+
 	
 	
 	
