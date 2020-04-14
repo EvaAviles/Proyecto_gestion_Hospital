@@ -148,9 +148,11 @@ public class Sistema {
 				} 
 			}
 		} //
-		else if(opcion.toLowerCase().equals("habitacion")) {     //buscar paciente por habitación
-			for (int i = 0 ; i <listaPacientes.size();i++) {				 
-				if(dato.equals(Integer.toString(listaPacientes.get(i).getHabitacion()))) {
+		else if(opcion.toLowerCase().equals("habitacion")) { //buscar paciente por habitación
+			
+			for (int i = 0 ; i <listaPacientes.size();i++) {
+				
+				if(dato.equals(listaPacientes.get(i).getHabitacion())) {
 					posicion=i;
 					i=listaPacientes.size();	
 				} 
@@ -283,7 +285,7 @@ public class Sistema {
 	//MAIN
 	public static void main(String[] args) {
 
-		//Pruba buscar Paciente
+	/*	//Pruba buscar Paciente
 		listaPacientes= new ArrayList<Paciente>();
 		Paciente persona1= new Paciente ("Olga","Moreno", 12, 'M',1);
 		listaPacientes.add(persona1);
@@ -318,7 +320,11 @@ public class Sistema {
 		p1.actualizarEdad();
 		System.out.println("Edad: "+ p1.getEdad());
 		//Prueba importar Pacientes desde una plantilla csv.
-		importarPacientesPlantillaCSV("pacientesNuevos.csv");
+		importarPacientesPlantillaCSV("pacientesNuevos.csv"); */
+		
+		System.out.println("Hola Mundo");
+		
+		
 
 
 

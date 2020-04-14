@@ -21,8 +21,8 @@ public class Paciente {
 	private String observacionesNotas;
 	private String antecedentesFamiliares;
 	private String telefono;
+	private String habitacion;
 
-	
 	//Relaciones
 	private Enfermero enfermero;
 	private ArrayList <Alergia> listaAlergias= new ArrayList<>();
@@ -30,12 +30,14 @@ public class Paciente {
 	private ArrayList <Receta> listaRecetas= new ArrayList<>();
 	private ArrayList <IngresoHospitalario> listaIngresos= new ArrayList<>();
 	private Medico medicoCabecera;
-	
+
+
+
 	//Constructores de Paciente
 	public Paciente(String string) {
 		this.nombre=string;
 	}
-	
+
 	//Getters y setters
 	public String getNombre() {
 		return nombre;
@@ -127,6 +129,14 @@ public class Paciente {
 	public void setListaAlergias(ArrayList<Alergia> listaAlergias) {
 		this.listaAlergias = listaAlergias;
 	}
+	public void printAlergias() { 
+		//Recorremos arrayList e imprimimos alergias
+		for(int i=0;i<listaAlergias.size();i++) {
+			System.out.println(listaAlergias.get(i));
+			System.out.println(", ");
+		}
+	}
+
 	public ArrayList<Suministro> getListaSuministros() {
 		return listaSuministros;
 	}
@@ -159,6 +169,14 @@ public class Paciente {
 		this.telefono = telefono;
 	}
 	
+	public String getHabitacion() {
+		return habitacion;
+	}
+
+	public void setHabitacion(String habitacion) {
+		this.habitacion = habitacion;
+	}
+
 	public void actualizarEdad() {
 		//A partir de la fecha de Nacimiento calculamos la edad, de esta forma podemos ir actualizando.
 		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -168,18 +186,36 @@ public class Paciente {
 		Period periodo = Period.between(fechaNac, ahora);
 		setEdad(periodo.getYears());
 	}
-	
+
 	//Métodos
 	public static void editarFichaPaciente() {
 	}
-	
-	public static void mostrarFichaPaciente() {
-		
+
+	public static void mostrarFichaPaciente(Paciente p) {
+		System.out.println(
+				"Nombre: "+p.getNombre()+
+				"Apellidos: "+p.getApellido1()+" "+ p.getApellido2()+
+				"/nDNI: "+ p.getDni()+
+				"/nEdad: "+ p.getEdad()+
+				"/nFecha de nacimiento" + p.getFechaNacimiento()+
+				"/nSexo"+ p.getSexo()+
+				"/nAltura: "+p.getAltura()+
+				"/nPeso: "+ p.getPeso()+
+				"/nGrupo Sanguíneo: "+p.getGrupoSanguineo()+
+				"/nHistorial médico"+ p.getHistorialMedico()+
+				"/nObservaciones" +p.getObservacionesNotas()+
+				"/nAntecedentes Famliares: "+p.getAntecedentesFamiliares()+
+				"/nTeléfono de contacto: "+ p.getTelefono()+
+				"/nEnfermero: "+p.getEnfermero());
+		System.out.print("Alergias: ");
+		p.printAlergias();
 	}
+
+
 	public static void exportarFichaPaciente() {
-		
+
 	}
-	
-	
-	
+
+
+
 }
