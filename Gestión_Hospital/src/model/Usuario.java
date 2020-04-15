@@ -1,8 +1,11 @@
 package model;
 
-public class Usuario extends Paciente{
+import java.io.Serializable;
 
-	
+public class Usuario extends Paciente implements Serializable{
+
+	//ID Memoria Persistente
+	private static final long serialVersionUID = 5329259474600388330L;
 	private String login;
 	private String password;
 

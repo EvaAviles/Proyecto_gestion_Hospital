@@ -1,12 +1,13 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Enfermero extends Usuario{
+public class Enfermero extends Usuario implements Serializable{
 
+	//ID memoria persistente
+	private static final long serialVersionUID = 7629219017707154796L;
 	
-
-
 	//Relaciones
 	private ArrayList <Paciente>listaPacientes= new ArrayList<>();
 	private ArrayList <Suministro> listaSuministros= new ArrayList<>();

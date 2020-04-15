@@ -1,9 +1,14 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Medicamento {
+public class Medicamento implements Serializable{
 
+	//ID Memoria Persistente
+	private static final long serialVersionUID = -5502406172604608229L;
+	
+	//Atributos
 	private String nombre;
 	private int stockDeseado;
 	private int stockDisponible;
