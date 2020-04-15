@@ -336,12 +336,9 @@ public class Sistema {
 		System.out.println("Edad: "+ p1.getEdad());
 		//Prueba importar Pacientes desde una plantilla csv.
 		importarPacientesPlantillaCSV("pacientesNuevos.csv"); */
-
-		System.out.println("Hola Mundo");
 		
-	/*	Paciente p=new Paciente("Ramón");
-		p.mostrarFichaPaciente(); 
-	*/
+
+	
 
 
 
