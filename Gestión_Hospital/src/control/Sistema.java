@@ -16,20 +16,22 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 
 public class Sistema {
 
 	//Relaciones
 	private ArrayList <Alergia> listaAlergias= new ArrayList<>();
 	private ArrayList <Enfermero> listaEnfermeros= new ArrayList<>();
-	private ArrayList <Usuario> listaUsuarios= new ArrayList<>();
+	private static ArrayList <Usuario> listaUsuarios= new ArrayList<>();
 	private ArrayList <Medico> listaMedicos= new ArrayList<>();
 	private MedicoAdministrador medicoAdministrador;
 	private ArrayList <Especialidad> listaEspecialidades= new ArrayList<>();
 	private ArrayList <Habitacion> listaHabitaciones= new ArrayList<>();
 	private ArrayList <Medicamento> listaMedicamentos= new ArrayList<>();
 	private Inventario inventarioMedicamentos;
-	public static ArrayList <Paciente>listaPacientes;
+	public static ArrayList <Paciente>listaPacientes=new ArrayList<>();
 
 	//Getters y setters
 	public ArrayList<Alergia> getListaAlergias() {
@@ -53,7 +55,7 @@ public class Sistema {
 	}
 
 	public void setListaUsuarios(ArrayList<Usuario> listaUsuarios) {
-		this.listaUsuarios = listaUsuarios;
+		Sistema.listaUsuarios = listaUsuarios;
 	}
 
 	public ArrayList<Medico> getListaMedicos() {
@@ -147,7 +149,7 @@ public class Sistema {
 			}
 		} //
 
-	/*	else if(opcion.toLowerCase().equals("habitacion")) { //buscar paciente por habitación
+		/*	else if(opcion.toLowerCase().equals("habitacion")) { //buscar paciente por habitación
 
 			for (int i = 0 ; i <listaPacientes.size();i++) {
 
@@ -166,7 +168,7 @@ public class Sistema {
 
 		return posicion;// Si se devuelve -1 no se ha encontrado nada
 	}
-		
+
 
 
 
@@ -286,8 +288,37 @@ public class Sistema {
 			//Añadimos el paciente a la lista de pacientes
 			añadirPaciente(p);
 		}
-
 	}
+		public static void logearse() {
+
+		String pass=""; //La inicializamos en nula
+		String usuario="";
+
+		//Con un bucle buscamos la contraseña y usuario
+		int p=0;
+		boolean acceso=false;
+		while(acceso==false) { //Mientras q no sean correctos los datos no acaba el bucle
+			//Aparecen mis ventanas para escribir usuario y contraseña
+			usuario=JOptionPane.showInputDialog("Usuario: ");
+			pass=JOptionPane.showInputDialog("Password: ");
+			//Recorro mi listaUsuarios para saber si coinciden
+			for(Usuario u: listaUsuarios) {
+				if(usuario.equals(listaUsuarios.get(p).getUsuario()) &&
+						pass.equals(listaUsuarios.get(p).getPassword())) {
+					//Si coinciden entro en el sistema e imprimo mensajito
+					JOptionPane.showMessageDialog(null, "Bienvenid@ al sistema");
+					acceso=true;
+				}else {
+					//Sige mi bucle e imprimo mensajito
+					acceso=false;
+					JOptionPane.showMessageDialog(null, "El usuario o contraseña no coinciden");
+				}
+			}	
+		}
+	}
+
+
+
 
 	//MAIN
 	public static void main(String[] args) {
@@ -295,20 +326,16 @@ public class Sistema {
 
 		/*	//Pruba buscar Paciente
 		listaPacientes= new ArrayList<Paciente>();
-=======
 		//Pruba buscar Paciente
 		//listaPacientes= new ArrayList<Paciente>();
->>>>>>> branch 'master' of https://github.com/EvaAviles/Proyecto_gestion_Hospital.git
 		//Paciente persona1= new Paciente ("Olga","Moreno", 12, 'M',1);
 		//listaPacientes.add(persona1);
 		//Paciente persona2= new Paciente ("Niza","Albo", 12, 'M',2);
-<<<<<<< HEAD
+
 		listaPacientes.add(persona2);
 
-=======
 		//listaPacientes.add(persona2);
-		
->>>>>>> branch 'master' of https://github.com/EvaAviles/Proyecto_gestion_Hospital.git
+
 
 		//Menú para buscar paciente; está a medio hacer, es solo de prueba, tengo que hacer un switch de casos bien hecho. 
 		/*switch() {
@@ -329,20 +356,27 @@ public class Sistema {
 			break;	
 		}*/
 
-		
+
 		//Prueba calcular edad a partir de la fecha de nacimiento
 		/*p1.setFechaNacimiento("13/04/2010");
 		p1.actualizarEdad();
 		System.out.println("Edad: "+ p1.getEdad());
 		//Prueba importar Pacientes desde una plantilla csv.
 		importarPacientesPlantillaCSV("pacientesNuevos.csv"); */
-		
 
 	
 
 
 
 
+
+
+
+
 	}
+
+
+
+
 
 }
