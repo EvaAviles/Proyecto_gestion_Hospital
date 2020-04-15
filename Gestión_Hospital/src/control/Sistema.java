@@ -16,7 +16,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-//prueba 2 claudiaS
+
 public class Sistema {
 
 	//Relaciones
@@ -30,7 +30,6 @@ public class Sistema {
 	private ArrayList <Medicamento> listaMedicamentos= new ArrayList<>();
 	private Inventario inventarioMedicamentos;
 	public static ArrayList <Paciente>listaPacientes;
-	private static int contadorPacientesID=0;
 
 	//Getters y setters
 	public ArrayList<Alergia> getListaAlergias() {
@@ -283,11 +282,11 @@ public class Sistema {
 	public static void main(String[] args) {
 
 		//Pruba buscar Paciente
-		listaPacientes= new ArrayList<Paciente>();
+		//listaPacientes= new ArrayList<Paciente>();
 		//Paciente persona1= new Paciente ("Olga","Moreno", 12, 'M',1);
-		listaPacientes.add(persona1);
+		//listaPacientes.add(persona1);
 		//Paciente persona2= new Paciente ("Niza","Albo", 12, 'M',2);
-		listaPacientes.add(persona2);
+		//listaPacientes.add(persona2);
 		
 
 		//Menú para buscar paciente; está a medio hacer, es solo de prueba, tengo que hacer un switch de casos bien hecho. 
