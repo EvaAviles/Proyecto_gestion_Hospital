@@ -16,7 +16,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-//prueba 2 claudiaS
+
 public class Sistema {
 
 	//Relaciones
@@ -30,7 +30,6 @@ public class Sistema {
 	private ArrayList <Medicamento> listaMedicamentos= new ArrayList<>();
 	private Inventario inventarioMedicamentos;
 	public static ArrayList <Paciente>listaPacientes;
-	private static int contadorPacientesID=0;
 
 	//Getters y setters
 	public ArrayList<Alergia> getListaAlergias() {
@@ -148,7 +147,7 @@ public class Sistema {
 			}
 		} //
 
-		else if(opcion.toLowerCase().equals("habitacion")) { //buscar paciente por habitación
+	/*	else if(opcion.toLowerCase().equals("habitacion")) { //buscar paciente por habitación
 
 			for (int i = 0 ; i <listaPacientes.size();i++) {
 
@@ -163,7 +162,9 @@ public class Sistema {
 				}
 				return posicion;
 			}
-		}
+		}*/
+
+		return posicion;// Si se devuelve -1 no se ha encontrado nada
 	}
 		
 
@@ -291,13 +292,23 @@ public class Sistema {
 	//MAIN
 	public static void main(String[] args) {
 
+
 		/*	//Pruba buscar Paciente
 		listaPacientes= new ArrayList<Paciente>();
+=======
+		//Pruba buscar Paciente
+		//listaPacientes= new ArrayList<Paciente>();
+>>>>>>> branch 'master' of https://github.com/EvaAviles/Proyecto_gestion_Hospital.git
 		//Paciente persona1= new Paciente ("Olga","Moreno", 12, 'M',1);
-		listaPacientes.add(persona1);
+		//listaPacientes.add(persona1);
 		//Paciente persona2= new Paciente ("Niza","Albo", 12, 'M',2);
+<<<<<<< HEAD
 		listaPacientes.add(persona2);
 
+=======
+		//listaPacientes.add(persona2);
+		
+>>>>>>> branch 'master' of https://github.com/EvaAviles/Proyecto_gestion_Hospital.git
 
 		//Menú para buscar paciente; está a medio hacer, es solo de prueba, tengo que hacer un switch de casos bien hecho. 
 		/*switch() {
@@ -310,7 +321,7 @@ public class Sistema {
 			System.out.println("Introduzca el apellido que desea buscar: ");
 			apellido= teclado.nextLine();
 			System.out.println(buscarPaciente(apellido, "apellido"));
-			break;
+			break;                                 
 		case "habitación":
 			System.out.println("Introduzca la habitación que desea buscar: ");
 			habitacion= teclado.nextInt();
@@ -327,6 +338,10 @@ public class Sistema {
 		importarPacientesPlantillaCSV("pacientesNuevos.csv"); */
 
 		System.out.println("Hola Mundo");
+		
+	/*	Paciente p=new Paciente("Ramón");
+		p.mostrarFichaPaciente(); 
+	*/
 
 
 

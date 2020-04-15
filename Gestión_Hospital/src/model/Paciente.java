@@ -7,127 +7,127 @@ import java.util.ArrayList;
 
 public class Paciente {
 
-	private String nombre;
-	private String apellido1;
-	private String apellido2;
-	private String dni;
-	private int edad;
-	private CharSequence fechaNacimiento;
-	private String sexo;// H o M
-	private int altura;//en cm
-	private int peso;//en kg
-	private String grupoSanguineo;
-	private String historialMedico;
-	private String observacionesNotas;
-	private String antecedentesFamiliares;
-	private String telefono;
-	private String habitacion;
+	private static String nombre;
+	private static String apellido1;
+	private static String apellido2;
+	private static String dni;
+	private static int edad;
+	private static CharSequence fechaNacimiento;
+	private static String sexo;// H o M
+	private static int altura;//en cm
+	private static int peso;//en kg
+	private static String grupoSanguineo;
+	private static String historialMedico;
+	private static String observacionesNotas;
+	private static String antecedentesFamiliares;
+	private static String telefono;	
+	private static Boolean ingresado=false;//Por defecto un paciente NO está ingresado
 
 	//Relaciones
-	private Enfermero enfermero;
-	private ArrayList <Alergia> listaAlergias= new ArrayList<>();
-	private ArrayList <Suministro> listaSuministros= new ArrayList<>();
-	private ArrayList <Receta> listaRecetas= new ArrayList<>();
-	private ArrayList <IngresoHospitalario> listaIngresos= new ArrayList<>();
-	private Medico medicoCabecera;
-	private Habitacion habitacionActual;
+	private static Enfermero enfermero;
+	private static ArrayList <Alergia> listaAlergias= new ArrayList<>();
+	private static ArrayList <Suministro> listaSuministros= new ArrayList<>();
+	private static ArrayList <Receta> listaRecetas= new ArrayList<>();
+	private static ArrayList <IngresoHospitalario> listaIngresos= new ArrayList<>();
+	private static Medico medicoCabecera;
+	private static Habitacion habitacionActual;
 	
 	public Paciente(String string) {
-		this.nombre=string;
+		Paciente.nombre=string;
 	}
 
 	//Getters y setters
-	public String getNombre() {
+	public static String getNombre() {
 		return nombre;
 	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public static void setNombre(String nombre) {
+		Paciente.nombre = nombre;
 	}
-	public String getApellido1() {
+	public static String getApellido1() {
 		return apellido1;
 	}
-	public void setApellido1(String apellido1) {
-		this.apellido1 = apellido1;
+	public static void setApellido1(String apellido1) {
+		Paciente.apellido1 = apellido1;
 	}
-	public String getApellido2() {
+	public static String getApellido2() {
 		return apellido2;
 	}
-	public void setApellido2(String apellido2) {
-		this.apellido2 = apellido2;
+	public static void setApellido2(String apellido2) {
+		Paciente.apellido2 = apellido2;
 	}
-	public String getDni() {
+	public static String getDni() {
 		return dni;
 	}
-	public void setDni(String dni) {
-		this.dni = dni;
+	public static void setDni(String dni) {
+		Paciente.dni = dni;
 	}
-	public int getEdad() {
+	public static int getEdad() {
 		return edad;
 	}
-	public void setEdad(int edad) {
-		this.edad = edad;
+	public static void setEdad(int edad) {
+		Paciente.edad = edad;
 	}
-	public CharSequence getFechaNacimiento() {
+	public static CharSequence getFechaNacimiento() {
 		return fechaNacimiento;
 	}
-	public void setFechaNacimiento(CharSequence fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
+	public static void setFechaNacimiento(CharSequence fechaNacimiento) {
+		Paciente.fechaNacimiento = fechaNacimiento;
 	}
-	public String getSexo() {
+	public static String getSexo() {
 		return sexo;
 	}
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
+	public static void setSexo(String sexo) {
+		Paciente.sexo = sexo;
 	}
-	public int getAltura() {
+	public static int getAltura() {
 		return altura;
 	}
-	public void setAltura(int altura) {
-		this.altura = altura;
+	public static void setAltura(int altura) {
+		Paciente.altura = altura;
 	}
-	public int getPeso() {
+	public static int getPeso() {
 		return peso;
 	}
-	public void setPeso(int peso) {
-		this.peso = peso;
+	public static void setPeso(int peso) {
+		Paciente.peso = peso;
 	}
-	public String getGrupoSanguineo() {
+	public static String getGrupoSanguineo() {
 		return grupoSanguineo;
 	}
-	public void setGrupoSanguineo(String grupoSanguineo) {
-		this.grupoSanguineo = grupoSanguineo;
+	public static void setGrupoSanguineo(String grupoSanguineo) {
+		Paciente.grupoSanguineo = grupoSanguineo;
 	}
-	public String getHistorialMedico() {
+	public static String getHistorialMedico() {
 		return historialMedico;
 	}
-	public void setHistorialMedico(String historialMedico) {
-		this.historialMedico = historialMedico;
+	public static void setHistorialMedico(String historialMedico) {
+		Paciente.historialMedico = historialMedico;
 	}
-	public String getObservacionesNotas() {
+	public static String getObservacionesNotas() {
 		return observacionesNotas;
 	}
-	public void setObservacionesNotas(String observacionesNotas) {
-		this.observacionesNotas = observacionesNotas;
+	public static void setObservacionesNotas(String observacionesNotas) {
+		Paciente.observacionesNotas = observacionesNotas;
 	}
-	public String getAntecedentesFamiliares() {
+	public static String getAntecedentesFamiliares() {
 		return antecedentesFamiliares;
 	}
-	public void setAntecedentesFamiliares(String antecedentesFamiliares) {
-		this.antecedentesFamiliares = antecedentesFamiliares;
+	public static void setAntecedentesFamiliares(String antecedentesFamiliares) {
+		Paciente.antecedentesFamiliares = antecedentesFamiliares;
 	}
-	public Enfermero getEnfermero() {
+	public static Enfermero getEnfermero() {
 		return enfermero;
 	}
-	public void setEnfermero(Enfermero enfermero) {
-		this.enfermero = enfermero;
+	public static void setEnfermero(Enfermero enfermero) {
+		Paciente.enfermero = enfermero;
 	}
-	public ArrayList<Alergia> getListaAlergias() {
+	public static ArrayList<Alergia> getListaAlergias() {
 		return listaAlergias;
 	}
-	public void setListaAlergias(ArrayList<Alergia> listaAlergias) {
-		this.listaAlergias = listaAlergias;
+	public static void setListaAlergias(ArrayList<Alergia> listaAlergias) {
+		Paciente.listaAlergias = listaAlergias;
 	}
-	public void printAlergias() { 
+	public static void printAlergias() { 
 		//Recorremos arrayList e imprimimos alergias
 		for(int i=0;i<listaAlergias.size();i++) {
 			System.out.println(listaAlergias.get(i));
@@ -135,47 +135,40 @@ public class Paciente {
 		}
 	}
 
-	public ArrayList<Suministro> getListaSuministros() {
+	public static ArrayList<Suministro> getListaSuministros() {
 		return listaSuministros;
 	}
-	public void setListaSuministros(ArrayList<Suministro> listaSuministros) {
-		this.listaSuministros = listaSuministros;
+	public static void setListaSuministros(ArrayList<Suministro> listaSuministros) {
+		Paciente.listaSuministros = listaSuministros;
 	}
-	public ArrayList<Receta> getListaRecetas() {
+	public static ArrayList<Receta> getListaRecetas() {
 		return listaRecetas;
 	}
-	public void setListaRecetas(ArrayList<Receta> listaRecetas) {
-		this.listaRecetas = listaRecetas;
+	public static  void setListaRecetas(ArrayList<Receta> listaRecetas) {
+		Paciente.listaRecetas = listaRecetas;
 	}
-	public ArrayList<IngresoHospitalario> getListaIngresos() {
+	public static ArrayList<IngresoHospitalario> getListaIngresos() {
 		return listaIngresos;
 	}
-	public void setListaIngresos(ArrayList<IngresoHospitalario> listaIngresos) {
-		this.listaIngresos = listaIngresos;
+	public static void setListaIngresos(ArrayList<IngresoHospitalario> listaIngresos) {
+		Paciente.listaIngresos = listaIngresos;
 	}
-	public Medico getMedicoCabecera() {
+	public static Medico getMedicoCabecera() {
 		return medicoCabecera;
 	}
-	public void setMedicoCabecera(Medico medicoCabecera) {
-		this.medicoCabecera = medicoCabecera;
+	public static void setMedicoCabecera(Medico medicoCabecera) {
+		Paciente.medicoCabecera = medicoCabecera;
 	}
-	public String getTelefono() {
+	public static String getTelefono() {
 		return telefono;
 	}
 
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
+	public static void setTelefono(String telefono) {
+		Paciente.telefono = telefono;
 	}
 	
-	public String getHabitacion() {
-		return habitacion;
-	}
 
-	public void setHabitacion(String habitacion) {
-		this.habitacion = habitacion;
-	}
-
-	public void actualizarEdad() {
+	public static void actualizarEdad() {
 		//A partir de la fecha de Nacimiento calculamos la edad, de esta forma podemos ir actualizando.
 		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		LocalDate fechaNac = LocalDate.parse((CharSequence) fechaNacimiento, fmt);
@@ -186,36 +179,47 @@ public class Paciente {
 	}
 
 	
-	public Habitacion getHabitacionActual() {
+	public static Habitacion getHabitacionActual() {
 		return habitacionActual;
 	}
 
-	public void setHabitacionActual(Habitacion habitacionActual) {
-		this.habitacionActual = habitacionActual;
+	public static  void setHabitacionActual(Habitacion habitacionActual) {
+		Paciente.habitacionActual = habitacionActual;
+	}
+	
+	public static Boolean getIngresado() {
+		return ingresado;
+	}
+
+	public static void setIngresado(Boolean ingresado) {
+		Paciente.ingresado = ingresado;
 	}
 	
 	//Métodos
 	public static void editarFichaPaciente() {
 	}
 
-	public static void mostrarFichaPaciente(Paciente p) {
+	public static void mostrarFichaPaciente() {
 		System.out.println(
-				"Nombre: "+p.getNombre()+
-				"Apellidos: "+p.getApellido1()+" "+ p.getApellido2()+
-				"/nDNI: "+ p.getDni()+
-				"/nEdad: "+ p.getEdad()+
-				"/nFecha de nacimiento" + p.getFechaNacimiento()+
-				"/nSexo"+ p.getSexo()+
-				"/nAltura: "+p.getAltura()+
-				"/nPeso: "+ p.getPeso()+
-				"/nGrupo Sanguíneo: "+p.getGrupoSanguineo()+
-				"/nHistorial médico"+ p.getHistorialMedico()+
-				"/nObservaciones" +p.getObservacionesNotas()+
-				"/nAntecedentes Famliares: "+p.getAntecedentesFamiliares()+
-				"/nTeléfono de contacto: "+ p.getTelefono()+
-				"/nEnfermero: "+p.getEnfermero());
+				
+				"Nombre: "+getNombre()+
+				"Apellidos: "+getApellido1()+" "+ getApellido2()+
+				"/nDNI: "+ getDni()+
+				"/nEdad: "+ getEdad()+
+				"/nFecha de nacimiento" + getFechaNacimiento()+
+				"/nSexo"+ getSexo()+
+				"/nAltura: "+getAltura()+
+				"/nPeso: "+ getPeso()+
+				"/nGrupo Sanguíneo: "+getGrupoSanguineo()+
+				"/nHistorial médico"+ getHistorialMedico()+
+				"/nObservaciones" +getObservacionesNotas()+
+				"/nAntecedentes Famliares: "+getAntecedentesFamiliares()+
+				"/nTeléfono de contacto: "+ getTelefono()+
+				"/nEnfermero: "+getEnfermero());
 		System.out.print("Alergias: ");
-		p.printAlergias();
+		printAlergias();
+		
+		//Faltan atributos !!!
 	}
 
 
