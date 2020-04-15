@@ -30,10 +30,8 @@ public class Paciente {
 	private ArrayList <Receta> listaRecetas= new ArrayList<>();
 	private ArrayList <IngresoHospitalario> listaIngresos= new ArrayList<>();
 	private Medico medicoCabecera;
-
-
-
-	//Constructores de Paciente
+	private Habitacion habitacionActual;
+	
 	public Paciente(String string) {
 		this.nombre=string;
 	}
@@ -187,6 +185,15 @@ public class Paciente {
 		setEdad(periodo.getYears());
 	}
 
+	
+	public Habitacion getHabitacionActual() {
+		return habitacionActual;
+	}
+
+	public void setHabitacionActual(Habitacion habitacionActual) {
+		this.habitacionActual = habitacionActual;
+	}
+	
 	//Métodos
 	public static void editarFichaPaciente() {
 	}
@@ -215,7 +222,5 @@ public class Paciente {
 	public static void exportarFichaPaciente() {
 
 	}
-
-
-
+	
 }
