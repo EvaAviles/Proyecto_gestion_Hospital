@@ -154,7 +154,7 @@ public class Sistema {
 				} 
 			}
 		}
-		return posicion;
+		return posicion;// Si se devuelve -1 no se ha encontrado nada
 	}
 
 
@@ -300,7 +300,7 @@ public class Sistema {
 			System.out.println("Introduzca el apellido que desea buscar: ");
 			apellido= teclado.nextLine();
 			System.out.println(buscarPaciente(apellido, "apellido"));
-			break;
+			break;                                 
 		case "habitación":
 			System.out.println("Introduzca la habitación que desea buscar: ");
 			habitacion= teclado.nextInt();

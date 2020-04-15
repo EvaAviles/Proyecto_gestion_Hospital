@@ -21,6 +21,7 @@ public class Paciente {
 	private String observacionesNotas;
 	private String antecedentesFamiliares;
 	private String telefono;
+	private Boolean ingresado=false;//Por defecto un paciente NO está ingresado
 
 	
 	//Relaciones
@@ -178,6 +179,14 @@ public class Paciente {
 		this.habitacionActual = habitacionActual;
 	}
 	
+	public Boolean getIngresado() {
+		return ingresado;
+	}
+
+	public void setIngresado(Boolean ingresado) {
+		this.ingresado = ingresado;
+	}
+	
 	//Métodos
 	public static void editarFichaPaciente() {
 	}
@@ -188,6 +197,8 @@ public class Paciente {
 	public static void exportarFichaPaciente() {
 		
 	}
+
+	
 
 
 	
