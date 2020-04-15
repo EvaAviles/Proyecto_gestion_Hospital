@@ -1,11 +1,12 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class Paciente {
+public class Paciente implements Serializable{
 
 	private String nombre;
 	private String apellido1;

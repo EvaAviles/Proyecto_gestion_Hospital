@@ -11,13 +11,23 @@ import model.MedicoAdministrador;
 import model.Paciente;
 import model.Usuario;
 
+import java.io.EOFException;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class Sistema {
+public class Sistema implements Serializable{
+
+	//No borrar el serialVersionUID
+	private static final long serialVersionUID = -889616695493948313L;
 
 	//Relaciones
 	private ArrayList <Alergia> listaAlergias= new ArrayList<>();
@@ -29,7 +39,7 @@ public class Sistema {
 	private ArrayList <Habitacion> listaHabitaciones= new ArrayList<>();
 	private ArrayList <Medicamento> listaMedicamentos= new ArrayList<>();
 	private Inventario inventarioMedicamentos;
-	public static ArrayList <Paciente>listaPacientes;
+	public static ArrayList <Paciente>listaPacientes=new ArrayList<>();
 
 	//Getters y setters
 	public ArrayList<Alergia> getListaAlergias() {
@@ -147,7 +157,7 @@ public class Sistema {
 			}
 		} //
 
-	/*	else if(opcion.toLowerCase().equals("habitacion")) { //buscar paciente por habitación
+		/*	else if(opcion.toLowerCase().equals("habitacion")) { //buscar paciente por habitación
 
 			for (int i = 0 ; i <listaPacientes.size();i++) {
 
@@ -166,7 +176,7 @@ public class Sistema {
 
 		return posicion;// Si se devuelve -1 no se ha encontrado nada
 	}
-		
+
 
 
 
@@ -183,6 +193,7 @@ public class Sistema {
 	}
 
 	public static void añadirPaciente(Paciente p) {//no se ha probado
+		//Faltaría añadir la comprobación del dni para asegurarnos de que no se repiten
 		listaPacientes.add(p);
 	}
 
@@ -289,26 +300,61 @@ public class Sistema {
 
 	}
 
+	//Implementación de MEMORIA PERSISTENTE
+	public static void exportarListaPacientes(String ruta) {
+
+		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(ruta))){
+			for (Paciente o: listaPacientes) {
+				oos.writeObject(o);
+			}
+
+			System.out.println("La lista de pacientes se ha guardado con éxito en la ruta:"+ruta);
+			oos.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void importarListaPacientes(String ruta) throws IOException, ClassNotFoundException{
+		try(ObjectInputStream ois= new ObjectInputStream(new FileInputStream (ruta))) {
+			
+			Paciente aux;
+			while (true) {
+				aux= (Paciente)ois.readObject();
+				añadirPaciente(aux);
+			}
+			
+		} catch(EOFException ex){}
+		
+		
+		
+	}
+
 	//MAIN
 	public static void main(String[] args) {
 
 
 		/*	//Pruba buscar Paciente
 		listaPacientes= new ArrayList<Paciente>();
-=======
+
 		//Pruba buscar Paciente
 		//listaPacientes= new ArrayList<Paciente>();
->>>>>>> branch 'master' of https://github.com/EvaAviles/Proyecto_gestion_Hospital.git
+
 		//Paciente persona1= new Paciente ("Olga","Moreno", 12, 'M',1);
 		//listaPacientes.add(persona1);
 		//Paciente persona2= new Paciente ("Niza","Albo", 12, 'M',2);
-<<<<<<< HEAD
+
 		listaPacientes.add(persona2);
 
-=======
+
 		//listaPacientes.add(persona2);
-		
->>>>>>> branch 'master' of https://github.com/EvaAviles/Proyecto_gestion_Hospital.git
+
+
 
 		//Menú para buscar paciente; está a medio hacer, es solo de prueba, tengo que hacer un switch de casos bien hecho. 
 		/*switch() {
@@ -329,16 +375,26 @@ public class Sistema {
 			break;	
 		}*/
 
-		
-		//Prueba calcular edad a partir de la fecha de nacimiento
-		/*p1.setFechaNacimiento("13/04/2010");
-		p1.actualizarEdad();
-		System.out.println("Edad: "+ p1.getEdad());
+
+
 		//Prueba importar Pacientes desde una plantilla csv.
-		importarPacientesPlantillaCSV("pacientesNuevos.csv"); */
+		//importarPacientesPlantillaCSV("pacientesNuevos.csv");
+		try {
+			importarListaPacientes("listaPacientes.age");
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//Prueba importar pacientes memoria persistente
+		//exportarListaPacientes("listaPacientes.age");
+		
+		for (Paciente p: listaPacientes) {
+			System.out.println(p.getNombre());
+		}
 		
 
-	
+
+
 
 
 
