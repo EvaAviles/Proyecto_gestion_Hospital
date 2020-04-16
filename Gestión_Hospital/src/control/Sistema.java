@@ -136,29 +136,25 @@ public class Sistema implements Serializable{
 
 	}
 
-	//Método buscar paciente
-	public static int buscarPaciente(String dato, String opcion) {	  /*como dato será el que me manda por teclado el usuario
-                                                                      como opción será nombre, apellido o habitación*/
-		int posicion=-1;
-		//opción buscar paciente por nombre
-		if (opcion.toLowerCase().equals("nombre")) {   //por si acaso, cambio lo que me manda el usuario a minúsculas
-			for (int i = 0 ; i <listaPacientes.size();i++) {    //recorro el ArrayList
-				if(dato.equals(listaPacientes.get(i).getNombre())) {    //si el nombre es igual a alguno del array, me da la posición
-					posicion=i;
-					i=listaPacientes.size();	
-				} 
-			}
-		} 
-		else if(opcion.toLowerCase().equals("apellido")) {       //Caso buscar paciente por apellido
-			for (int i = 0 ; i <listaPacientes.size();i++) {
-				if(dato.equals(listaPacientes.get(i).getApellido1())) {
-					posicion=i;
-					i=listaPacientes.size();	
-				} 
-			}
-		} //
+	//Método buscar paciente por dni
+	public static int buscarPaciente(String dni) {	  //como parámetro le damos el DNI
 
-		/*	else if(opcion.toLowerCase().equals("habitacion")) { //buscar paciente por habitación
+		int posicion=-1;
+
+		for (int i = 0 ; i <listaPacientes.size();i++) {    //recorro el ArrayList
+			if(dni.equals(listaPacientes.get(i).getDni())) {    //si el dni es igual a alguno del array, me da la posición
+				posicion=i;
+				i=listaPacientes.size();	
+			} 
+		}
+		return posicion;// Si se devuelve -1 no se ha encontrado nada
+	}
+
+
+
+
+
+	/*	else if(opcion.toLowerCase().equals("habitacion")) { //buscar paciente por habitación
 
 			for (int i = 0 ; i <listaPacientes.size();i++) {
 
@@ -175,8 +171,7 @@ public class Sistema implements Serializable{
 			}
 		}*/
 
-		return posicion;// Si se devuelve -1 no se ha encontrado nada
-	}
+
 
 
 
@@ -344,10 +339,8 @@ public class Sistema implements Serializable{
 			importarMedicoAdministrador();
 			importarInventario();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -649,21 +642,31 @@ public class Sistema implements Serializable{
 			break;	
 		}*/
 		
+
 		//PRUEBAS MEMORIA PERSISTENTE - DE MOMENTO FUNCIONA CON TODO LO QUE SE GUARDA EN SISTEMA.JAVA :)
 		//Prueba importar Pacientes desde una plantilla csv.
-	//	importarPacientesPlantillaCSV("pacientesNuevos.csv");
-	
+		importarPacientesPlantillaCSV("pacientesNuevos.csv");
+
 		//Prueba importar pacientes memoria persistente
 		//exportarListaPacientes("listaPacientes.age");
 
 		/*importarListas();
-		//for (Paciente p: listaPacientes) {
+		for (Paciente p: listaPacientes) {
 			System.out.println(p.getNombre());
 		}*/
-		
+
 		//exportarListas();
 
 		
+		//Prueba buscar paciente por dni
+		String dni;
+		System.out.println("Introduzca el dni que desea buscar: ");
+		Scanner teclado= new Scanner (System.in);
+		dni= teclado.nextLine();
+		System.out.println(buscarPaciente(dni));
+		System.out.println(listaPacientes.size());
+		teclado.close();
+
 
 
 
@@ -671,5 +674,4 @@ public class Sistema implements Serializable{
 
 
 	}
-
 }
