@@ -10,8 +10,8 @@ public class Medico extends Usuario implements Serializable{
 	private static final long serialVersionUID = 5008925907637094901L;
 	
 	//Relaciones
-	private ArrayList <Paciente>listaPacientes= new ArrayList<>();
-	private ArrayList <Receta>listaRecetas= new ArrayList<>();
+	protected ArrayList <Paciente>listaPacientes= new ArrayList<>();
+	protected ArrayList <Receta>listaRecetas= new ArrayList<>();
 	
 	//Getters y setters
 	public ArrayList<Paciente> getListaPacientes() {

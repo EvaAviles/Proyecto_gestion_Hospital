@@ -9,8 +9,8 @@ public class Enfermero extends Usuario implements Serializable{
 	private static final long serialVersionUID = 7629219017707154796L;
 	
 	//Relaciones
-	private ArrayList <Paciente>listaPacientes= new ArrayList<>();
-	private ArrayList <Suministro> listaSuministros= new ArrayList<>();
+	protected ArrayList <Paciente>listaPacientes= new ArrayList<>();
+	protected ArrayList <Suministro> listaSuministros= new ArrayList<>();
 	
 	//Getters y setters
 	public ArrayList<Paciente> getListaPacientes() {

@@ -194,7 +194,7 @@ public class Sistema implements Serializable{
 	}
 
 	public static void añadirPaciente(Paciente p) {//no se ha probado
-		//Faltaría añadir la comprobación del dni para asegurarnos de que no se repiten
+		//Faltaría añadir la comprobación del dni para asegurarnos de que no se repiten, comprobando el DNI
 		listaPacientes.add(p);
 	}
 
@@ -229,8 +229,6 @@ public class Sistema implements Serializable{
 	public static void añadirHabitacion (Habitacion a) {
 		listaHabitaciones.add(a);
 	}
-
-
 
 	//IMPORTAR PACIENTES DESDE UN CSV
 	public static int contarLineas (String ruta) {
@@ -368,11 +366,17 @@ public class Sistema implements Serializable{
 	}
 	//ListaPacientes
 	public static void exportarListaPacientes() {
+		//Se rodea de un try-catch para gestionar los posibles errores
+		//Con ObjectOutputStream instanciamos un tipo de "scanner" para leer el fichero
 		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("listaPacientes.age"))){
+			//Recorremos nuestra lista de pacientes
 			for (Paciente o: listaPacientes) {
+				//Escribimos cada objeto en el fichero
 				oos.writeObject(o);
 			}
+			//Damos feedback
 			System.out.println("La lista de pacientes se ha guardado con éxito en la ruta: listaPaciente.age");
+			//Cerramos el "scanner"
 			oos.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -382,10 +386,15 @@ public class Sistema implements Serializable{
 	}
 
 	public static void importarListaPacientes() throws IOException, ClassNotFoundException{
+		//Con ObjectInputStream instanciamos un tipo de "scanner" con el que leeremos el fichero
 		try(ObjectInputStream ois= new ObjectInputStream(new FileInputStream ("listaPacientes.age"))) {
+			//Creamos un paciente auxiliar
 			Paciente aux;
+			//Mientras haya texto (true) leemos el fichero
 			while (true) {
+				//En el paciente aux guardamos el objeto que leemos, le hacemos cast de Paciente
 				aux= (Paciente)ois.readObject();
+				//Añadimos el paciente a la lista
 				añadirPaciente(aux);
 			}
 		} catch(EOFException ex){}	
@@ -657,7 +666,7 @@ public class Sistema implements Serializable{
 		
 		//exportarListas();
 
-		//NOTA: TODOS LOS ATRIBUTOS DE LAS CLASES QUE HEREDAN DE OTRAS, TIENEN QUE ESTAR EN "PROTECTED"
+		
 
 
 
