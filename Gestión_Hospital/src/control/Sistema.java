@@ -648,9 +648,6 @@ public class Sistema implements Serializable{
 			System.out.println(buscarPaciente(Integer.toString(habitacion), "HABITACION"));
 			break;	
 		}*/
-
-
-
 		
 		//PRUEBAS MEMORIA PERSISTENTE - DE MOMENTO FUNCIONA CON TODO LO QUE SE GUARDA EN SISTEMA.JAVA :)
 		//Prueba importar Pacientes desde una plantilla csv.

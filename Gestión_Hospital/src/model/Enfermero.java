@@ -28,6 +28,14 @@ public class Enfermero extends Usuario implements Serializable{
 	public void setListaSuministros(ArrayList<Suministro> listaSuministros) {
 		this.listaSuministros = listaSuministros;
 	}
+	
+	public void añadirPaciente (Paciente p) {
+		listaPacientes.add(p);
+	}
+	
+	public void añadirSuministro(Suministro s) {
+		listaSuministros.add(s);
+	}
 
 	//Métodos
 	public static void interfazEnfermero() {

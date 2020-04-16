@@ -171,6 +171,22 @@ public class Paciente implements Serializable{
 		this.telefono = telefono;
 	}
 	
+	public void añadirIngreso (IngresoHospitalario a) {
+		listaIngresos.add(a);
+	}
+	
+	public void añadirAlergia (Alergia a) {
+		listaAlergias.add(a);
+	}
+	
+	public void añadirReceta (Receta a) {
+		listaRecetas.add(a);
+	}
+	
+	public void añadirSuministro (Suministro a) {
+		listaSuministros.add(a);
+	}
+	
 
 	public void actualizarEdad() {
 		//A partir de la fecha de Nacimiento calculamos la edad, de esta forma podemos ir actualizando.

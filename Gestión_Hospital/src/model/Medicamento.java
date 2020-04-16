@@ -17,8 +17,8 @@ public class Medicamento implements Serializable{
 	
 	//Relaciones
 	private Inventario inventario;
-	private Unidad listaUnidadesDisponibles;
-	private Unidad listaUnidadesNoDisponibles;
+	private ArrayList <Unidad> listaUnidadesDisponibles= new ArrayList<>() ;
+	private ArrayList <Unidad> listaUnidadesNoDisponibles= new ArrayList<>() ;
 	private ArrayList <RegistroConsumo> listaRegistroConsumo= new ArrayList<>();
 	private EstadísticaMedicamentos estadistica;
 	private ArrayList <Alergia> listaAlergias= new ArrayList<>();
@@ -60,16 +60,16 @@ public class Medicamento implements Serializable{
 	public void setInventario(Inventario inventario) {
 		this.inventario = inventario;
 	}
-	public Unidad getListaUnidadesDisponibles() {
+	public ArrayList<Unidad> getListaUnidadesDisponibles() {
 		return listaUnidadesDisponibles;
 	}
-	public void setListaUnidadesDisponibles(Unidad listaUnidadesDisponibles) {
+	public void setListaUnidadesDisponibles(ArrayList<Unidad> listaUnidadesDisponibles) {
 		this.listaUnidadesDisponibles = listaUnidadesDisponibles;
 	}
-	public Unidad getListaUnidadesNoDisponibles() {
+	public ArrayList<Unidad> getListaUnidadesNoDisponibles() {
 		return listaUnidadesNoDisponibles;
 	}
-	public void setListaUnidadesNoDisponibles(Unidad listaUnidadesNoDisponibles) {
+	public void setListaUnidadesNoDisponibles(ArrayList<Unidad> listaUnidadesNoDisponibles) {
 		this.listaUnidadesNoDisponibles = listaUnidadesNoDisponibles;
 	}
 	public ArrayList<RegistroConsumo> getListaRegistroConsumo() {
@@ -89,6 +89,22 @@ public class Medicamento implements Serializable{
 	}
 	public void setListaAlergias(ArrayList<Alergia> listaAlergias) {
 		this.listaAlergias = listaAlergias;
+	}
+	
+	public void añadirRegistroConsumo (RegistroConsumo s) {
+		listaRegistroConsumo.add(s);
+	}
+	
+	public void añadirAlergia(Alergia a) {
+		listaAlergias.add(a);
+	}
+	
+	public void añadirUnidadDisponible (Unidad a) {
+		listaUnidadesDisponibles.add(a);
+	}
+	
+	public void añadirUnidadNoDisponible (Unidad a) {
+		listaUnidadesNoDisponibles.add(a);
 	}
 	
 	//Métodos

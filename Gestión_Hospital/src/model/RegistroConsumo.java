@@ -46,10 +46,15 @@ public class RegistroConsumo {
 		this.listaSuministros = listaSuministros;
 	}
 	
-	//Métodos
-	public static void añadirConsumicion() {
-
+	public void añadirSuministro(Suministro s) {
+		listaSuministros.add(s);
 	}
+	
+	//Métodos
+	public void añadirConsumicion(int unidades) {
+		this.unidadesConsumidas = unidades+unidadesConsumidas;
+	}
+	
 
 	
 }

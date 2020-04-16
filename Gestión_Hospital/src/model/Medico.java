@@ -30,6 +30,13 @@ public class Medico extends Usuario implements Serializable{
 		this.listaRecetas = listaRecetas;
 	}
 	
+	public void añadirReceta(Receta r) {
+		listaRecetas.add(r);
+	}
+	
+	public void añadirPaciente (Paciente p) {
+		listaPacientes.add(p);
+	}
 	//Métodos
 	public static void interfazMedico() {
 
