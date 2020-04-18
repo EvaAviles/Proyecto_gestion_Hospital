@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -123,6 +124,76 @@ public class ManejoFicheros implements Serializable {
 			//Añadimos el paciente a la lista de pacientes
 			s.añadirPaciente(p);
 		}
+	}
+	//Escribir la matriz en un fichero
+	public static void escribirMatrizFichero(String ruta, String [][] datos) {
+		FileWriter fichero;
+		try {
+			fichero = new FileWriter(ruta);
+			// Escribimos linea a linea en el fichero
+			for (int i=0; i<datos.length; i++) {
+				for (int j=0; j<datos[0].length; j++) {
+					
+					if (j==datos[0].length-1) {	// Último valor sin ;
+						fichero.write(datos[i][j]+"");
+					}
+					else {
+						fichero.write(datos[i][j] + ";");
+					}
+				}
+				fichero.write("\n");	// salto de línea al final de la fila
+			}
+			fichero.close();
+		} catch (Exception ex) {
+			System.out.println("Mensaje de la excepción: " + ex.getMessage());
+		}
+	}
+	//Exportar informe paciente (en un csv) FALTA PROBAR!
+	public void exportarInformePaciente(Paciente p) {
+		String datosPaciente[][] = new String[20][2];
+		//En el caso de POO -> datosPaciente[1][1] = get.nombrePaciente;
+		
+		datosPaciente[0][0] = "Datos del paciente";
+		datosPaciente[1][0] = "Primer apellido: ";
+		datosPaciente[2][0] = "Segundo apellido:";
+		datosPaciente[3][0] = "Nombre:";
+		datosPaciente[4][0] = "DNI:";
+		datosPaciente[5][0] = "Fecha nacimento:";
+		datosPaciente[6][0] = "Sexo:";
+		datosPaciente[7][0] = "Altura (cm)";
+		datosPaciente[8][0] = "Peso (Kg):";
+		datosPaciente[9][0] = "Grupo sanguíneo";
+		datosPaciente[10][0] = "Historial médico";
+		datosPaciente[11][0] = "Alergias";
+		datosPaciente[12][0] = "Observaciones:";
+		datosPaciente[13][0] = "Antecedentes familiares:";
+		datosPaciente[14][0] = "Número de teléfono:";
+		datosPaciente[15][0] = "Enfermero asignado:";
+		datosPaciente[16][0] = "Médico asignado:";
+
+		//Añadido con getters y setters
+		datosPaciente[1][1] = p.getApellido1();
+		datosPaciente[2][1] = p.getApellido2();
+		datosPaciente[3][1] = p.getNombre();
+		datosPaciente[4][1] = p.getDni();
+		datosPaciente[5][1] = p.getFechaNacimiento();
+		datosPaciente[6][1] = p.getSexo();
+		datosPaciente[7][1] = p.getAltura();
+		datosPaciente[8][1] = p.getPeso();
+		datosPaciente[9][1] = p.getGrupoSanguineo();
+		datosPaciente[10][1] = p.getHistorialMedico();
+		datosPaciente[11][1] = p.getAlergias();
+		datosPaciente[12][1] = p.getObservaciones();
+		datosPaciente[13][1] = p.getAntecedentesFamiliares();
+		datosPaciente[14][1] = p.getTelefono();
+		
+		//Falta completar los métodos de estas clases
+		//datosPaciente[15][1] = p.getEnfermero();
+		//datosPaciente[16][1] = p.getMedico();
+		//datosPaciente[17][1] = p.getHabitacion();
+		
+		String ruta = "Informe_" + p.getDni() + ".csv";
+		escribirMatrizFichero(ruta,datosPaciente); 
 	}
 
 	//Implementación de MEMORIA PERSISTENTE
