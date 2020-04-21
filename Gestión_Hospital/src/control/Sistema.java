@@ -76,6 +76,7 @@ public class Sistema  {
 	public static void setListaEspecialidades(ArrayList<Especialidad> listaEspecialidades) {
 		Sistema.listaEspecialidades = listaEspecialidades;
 	}
+	//hi
 
 	public static ArrayList<Habitacion> getListaHabitaciones() {
 		return listaHabitaciones;
