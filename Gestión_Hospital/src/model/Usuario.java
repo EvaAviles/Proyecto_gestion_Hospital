@@ -1,11 +1,14 @@
 package model;
-
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import java.io.Serializable;
 
-public class  Usuario {
+public class  Usuario implements Serializable{ 
 
 	private String usuario; //este será el número de empleado
+
+	//ID Memoria Persistente
+	private static final long serialVersionUID = 5329259474600388330L;
+	private String login;
 	private String password;
 
 	//Relaciones

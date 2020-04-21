@@ -1,9 +1,13 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Habitacion {
+public class Habitacion implements Serializable{
 
+	//ID Memoria Persistente
+	private static final long serialVersionUID = -7417514178536884514L;
+	
 	//Atributos
 	private String nombre;
 	private int planta;

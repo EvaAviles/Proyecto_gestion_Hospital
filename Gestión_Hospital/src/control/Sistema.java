@@ -11,27 +11,38 @@ import model.MedicoAdministrador;
 import model.Paciente;
 import model.Usuario;
 
+import java.io.EOFException;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
 
-public class Sistema {
+public class Sistema implements Serializable{
 
-	//Relaciones
-	private ArrayList <Alergia> listaAlergias= new ArrayList<>();
-	private ArrayList <Enfermero> listaEnfermeros= new ArrayList<>();
+	//No borrar el serialVersionUID - es para la memoria persistente
+	private static final long serialVersionUID = -889616695493948313L;
+
+	//Relaciones - TODAS TIENEN MEMORIA PERSISTENTE
+	private static ArrayList <Alergia> listaAlergias= new ArrayList<>();
+	private static ArrayList <Enfermero> listaEnfermeros= new ArrayList<>();
 	private static ArrayList <Usuario> listaUsuarios= new ArrayList<>();
-	private ArrayList <Medico> listaMedicos= new ArrayList<>();
-	private MedicoAdministrador medicoAdministrador;
-	private ArrayList <Especialidad> listaEspecialidades= new ArrayList<>();
-	private ArrayList <Habitacion> listaHabitaciones= new ArrayList<>();
-	private ArrayList <Medicamento> listaMedicamentos= new ArrayList<>();
-	private Inventario inventarioMedicamentos;
-	public static ArrayList <Paciente>listaPacientes=new ArrayList<>();
+	private static ArrayList <Medico> listaMedicos= new ArrayList<>();
+	private static MedicoAdministrador medicoAdministrador;
+	private static ArrayList <Especialidad> listaEspecialidades= new ArrayList<>();
+	private static ArrayList <Habitacion> listaHabitaciones= new ArrayList<>();
+	private static ArrayList <Medicamento> listaMedicamentos= new ArrayList<>();
+	private static Inventario inventarioMedicamentos;
+	public static ArrayList <Paciente>listaPacientes=new ArrayList<>();//
+
 
 	//Getters y setters
 	public ArrayList<Alergia> getListaAlergias() {
@@ -58,12 +69,12 @@ public class Sistema {
 		Sistema.listaUsuarios = listaUsuarios;
 	}
 
-	public ArrayList<Medico> getListaMedicos() {
+	public static ArrayList<Medico> getListaMedicos() {
 		return listaMedicos;
 	}
 
-	public void setListaMedicos(ArrayList<Medico> listaMedicos) {
-		this.listaMedicos = listaMedicos;
+	public static void setListaMedicos(ArrayList<Medico> listaMedicos) {
+		Sistema.listaMedicos = listaMedicos;
 	}
 
 	public MedicoAdministrador getMedicoAdministrador() {
@@ -71,7 +82,7 @@ public class Sistema {
 	}
 
 	public void setMedicoAdministrador(MedicoAdministrador medicoAdministrador) {
-		this.medicoAdministrador = medicoAdministrador;
+		Sistema.medicoAdministrador = medicoAdministrador;
 	}
 
 	public ArrayList<Especialidad> getListaEspecialidades() {
@@ -79,7 +90,7 @@ public class Sistema {
 	}
 
 	public void setListaEspecialidades(ArrayList<Especialidad> listaEspecialidades) {
-		this.listaEspecialidades = listaEspecialidades;
+		Sistema.listaEspecialidades = listaEspecialidades;
 	}
 
 	public ArrayList<Habitacion> getListaHabitaciones() {
@@ -87,7 +98,7 @@ public class Sistema {
 	}
 
 	public void setListaHabitaciones(ArrayList<Habitacion> listaHabitaciones) {
-		this.listaHabitaciones = listaHabitaciones;
+		Sistema.listaHabitaciones = listaHabitaciones;
 	}
 
 	public ArrayList<Medicamento> getListaMedicamentos() {
@@ -95,7 +106,7 @@ public class Sistema {
 	}
 
 	public void setListaMedicamentos(ArrayList<Medicamento> listaMedicamentos) {
-		this.listaMedicamentos = listaMedicamentos;
+		Sistema.listaMedicamentos = listaMedicamentos;
 	}
 
 	public Inventario getInventarioMedicamentos() {
@@ -103,7 +114,7 @@ public class Sistema {
 	}
 
 	public void setInventarioMedicamentos(Inventario inventarioMedicamentos) {
-		this.inventarioMedicamentos = inventarioMedicamentos;
+		Sistema.inventarioMedicamentos = inventarioMedicamentos;
 	}
 
 	public static ArrayList<Paciente> getListaPacientes() {
@@ -185,12 +196,43 @@ public class Sistema {
 	}
 
 	public static void añadirPaciente(Paciente p) {//no se ha probado
+		//Faltaría añadir la comprobación del dni para asegurarnos de que no se repiten
 		listaPacientes.add(p);
 	}
 
 	public static void eliminarPaciente(int i) {//no se ha probado
 		listaPacientes.remove(i);
 	}
+
+	public static void añadirAlergia (Alergia a) {
+		listaAlergias.add(a);
+	}
+
+	public static void añadirEnfermero (Enfermero a) {
+		listaEnfermeros.add(a);
+	}
+
+	public static void añadirUsuario (Usuario a) {
+		listaUsuarios.add(a);
+	}
+
+	public static void añadirMedico (Medico a) {
+		listaMedicos.add(a);
+	}
+
+	public static void añadirMedicamento (Medicamento a) {
+		listaMedicamentos.add(a);
+	}
+
+	public static void añadirEspecialidad (Especialidad a) {
+		listaEspecialidades.add(a);
+	}
+
+	public static void añadirHabitacion (Habitacion a) {
+		listaHabitaciones.add(a);
+	}
+
+
 
 	//IMPORTAR PACIENTES DESDE UN CSV
 	public static int contarLineas (String ruta) {
@@ -289,7 +331,7 @@ public class Sistema {
 			añadirPaciente(p);
 		}
 	}
-		public static void logearse() {
+	public static void logearse() {
 
 		String pass=""; //La inicializamos en nula
 		String usuario="";
@@ -320,21 +362,292 @@ public class Sistema {
 
 
 
+	//Implementación de MEMORIA PERSISTENTE
+	//Importar todas las listas
+	public static void importarListas() {
+		try {
+			importarListaPacientes();
+			importarListaAlergias();
+			importarListaEnfermeros();
+			importarListaUsuarios();
+			importarListaMedicos();
+			importarListaEspecialidades();
+			importarListaHabitaciones();
+			importarListaMedicamentos();
+			importarMedicoAdministrador();
+			importarInventario();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	//Exportar todas las listas
+	public static void exportarListas () {
+		exportarListaAlergias();
+		exportarListaEnfermeros();
+		exportarListaPacientes();
+		exportarListaUsuarios();
+		exportarListaMedicos();
+		exportarListaEspecialidades();
+		exportarListaHabitaciones();
+		exportarListaMedicamentos();
+		exportarInventario();
+		exportarMedicoAdministrador();
+	}
+	//ListaPacientes
+	public static void exportarListaPacientes() {
+		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("listaPacientes.age"))){
+			for (Paciente o: listaPacientes) {
+				oos.writeObject(o);
+			}
+			System.out.println("La lista de pacientes se ha guardado con éxito en la ruta: listaPaciente.age");
+			oos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void importarListaPacientes() throws IOException, ClassNotFoundException{
+		try(ObjectInputStream ois= new ObjectInputStream(new FileInputStream ("listaPacientes.age"))) {
+			Paciente aux;
+			while (true) {
+				aux= (Paciente)ois.readObject();
+				añadirPaciente(aux);
+			}
+		} catch(EOFException ex){}	
+	}
+	//ListaAlergias
+	public static void exportarListaAlergias() {
+		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("listaAlergias.age"))){
+			for (Alergia o: listaAlergias) {
+				oos.writeObject(o);
+			}
+			System.out.println("La lista de pacientes se ha guardado con éxito en la ruta: listaAlergias.age");
+			oos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void importarListaAlergias() throws IOException, ClassNotFoundException{
+		try(ObjectInputStream ois= new ObjectInputStream(new FileInputStream ("listaAlergias.age"))) {
+			Alergia aux;
+			while (true) {
+				aux= (Alergia)ois.readObject();
+				añadirAlergia(aux);
+			}
+		} catch(EOFException ex){}	
+	}
+	//ListaEnfermeros
+	public static void exportarListaEnfermeros() {
+		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("listaEnfermeros.age"))){
+			for (Enfermero o: listaEnfermeros) {
+				oos.writeObject(o);
+			}
+			System.out.println("La lista de pacientes se ha guardado con éxito en la ruta: listaEnfermeros.age");
+			oos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void importarListaEnfermeros() throws IOException, ClassNotFoundException{
+		try(ObjectInputStream ois= new ObjectInputStream(new FileInputStream ("listaEnfermeros.age"))) {
+			Enfermero aux;
+			while (true) {
+				aux= (Enfermero)ois.readObject();
+				añadirEnfermero(aux);
+			}
+		} catch(EOFException ex){}	
+	}
+	//ListaUsuarios
+	public static void exportarListaUsuarios() {
+		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("listaUsuarios.age"))){
+			for (Usuario o: listaUsuarios) {
+				oos.writeObject(o);
+			}
+			System.out.println("La lista de pacientes se ha guardado con éxito en la ruta: listaUsuarios.age");
+			oos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void importarListaUsuarios() throws IOException, ClassNotFoundException{
+		try(ObjectInputStream ois= new ObjectInputStream(new FileInputStream ("listaUsuarios.age"))) {
+			Usuario aux;
+			while (true) {
+				aux= (Usuario)ois.readObject();
+				añadirUsuario(aux);
+			}
+		} catch(EOFException ex){}	
+	}
+	//ListaMedicos
+	public static void exportarListaMedicos() {
+		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("listaMedicos.age"))){
+			for (Medico o: listaMedicos) {
+				oos.writeObject(o);
+			}
+			System.out.println("La lista de pacientes se ha guardado con éxito en la ruta: listaMedicos.age");
+			oos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void importarListaMedicos() throws IOException, ClassNotFoundException{
+		try(ObjectInputStream ois= new ObjectInputStream(new FileInputStream ("listaMedicos.age"))) {
+			Medico aux;
+			while (true) {
+				aux= (Medico)ois.readObject();
+				añadirMedico(aux);
+			}
+		} catch(EOFException ex){}	
+	}
+	//ListaEspecialidades
+	public static void exportarListaEspecialidades() {
+		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("listaEspecialidades.age"))){
+			for (Especialidad o: listaEspecialidades) {
+				oos.writeObject(o);
+			}
+			System.out.println("La lista de pacientes se ha guardado con éxito en la ruta: listaEspecialidades.age");
+			oos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void importarListaEspecialidades() throws IOException, ClassNotFoundException{
+		try(ObjectInputStream ois= new ObjectInputStream(new FileInputStream ("listaEspecialidades.age"))) {
+			Especialidad aux;
+			while (true) {
+				aux= (Especialidad)ois.readObject();
+				añadirEspecialidad(aux);
+			}
+		} catch(EOFException ex){}	
+	}
+	//ListaHabitaciones
+	public static void exportarListaHabitaciones() {
+		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("listaHabitaciones.age"))){
+			for (Habitacion o: listaHabitaciones) {
+				oos.writeObject(o);
+			}
+			System.out.println("La lista de pacientes se ha guardado con éxito en la ruta: listaHabitaciones.age");
+			oos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void importarListaHabitaciones() throws IOException, ClassNotFoundException{
+		try(ObjectInputStream ois= new ObjectInputStream(new FileInputStream ("listaHabitaciones.age"))) {
+			Habitacion aux;
+			while (true) {
+				aux= (Habitacion)ois.readObject();
+				añadirHabitacion(aux);
+			}
+		} catch(EOFException ex){}	
+	}
+	//ListaMedicamentos
+	public static void exportarListaMedicamentos() {
+		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("listaMedicamentos.age"))){
+			for (Medicamento o: listaMedicamentos) {
+				oos.writeObject(o);
+			}
+			System.out.println("La lista de pacientes se ha guardado con éxito en la ruta: listaMedicamentos.age");
+			oos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void importarListaMedicamentos() throws IOException, ClassNotFoundException{
+		try(ObjectInputStream ois= new ObjectInputStream(new FileInputStream ("listaMedicamentos.age"))) {
+			Medicamento aux;
+			while (true) {
+				aux= (Medicamento)ois.readObject();
+				añadirMedicamento(aux);
+			}
+		} catch(EOFException ex){}	
+	}
+	//MedicoAdministrador
+	public static void exportarMedicoAdministrador() {
+		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("MedicoAdministrador.age"))){
+			oos.writeObject(medicoAdministrador);
+			System.out.println("La información del médico administrador se ha guardado con éxito en la ruta: MedicoAdministrador.age");
+			oos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void importarMedicoAdministrador() throws IOException, ClassNotFoundException{
+		try(ObjectInputStream ois= new ObjectInputStream(new FileInputStream ("MedicoAdministrador.age"))) {
+			while (true) {
+				medicoAdministrador= (MedicoAdministrador)ois.readObject();
+			}
+		} catch(EOFException ex){}	
+	}
+	//InventarioMedicamentos
+	public static void exportarInventario() {
+		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("InventarioMedicamentos.age"))){
+			oos.writeObject(inventarioMedicamentos);
+			System.out.println("El inventario de medicamentos se ha guardado con éxito en la ruta: InventarioMedicamentos.age");
+			oos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void importarInventario() throws IOException, ClassNotFoundException{
+		try(ObjectInputStream ois= new ObjectInputStream(new FileInputStream ("InventarioMedicamentos.age"))) {
+
+			while (true) {
+				inventarioMedicamentos= (Inventario)ois.readObject();
+			}
+		} catch(EOFException ex){}	
+	}
+
 	//MAIN
 	public static void main(String[] args) {
 
-
-		/*	//Pruba buscar Paciente
 		listaPacientes= new ArrayList<Paciente>();
+
 		//Pruba buscar Paciente
+
 		//listaPacientes= new ArrayList<Paciente>();
+
+		//listaPacientes= new ArrayList<Paciente>();
+
 		//Paciente persona1= new Paciente ("Olga","Moreno", 12, 'M',1);
 		//listaPacientes.add(persona1);
 		//Paciente persona2= new Paciente ("Niza","Albo", 12, 'M',2);
 
-		listaPacientes.add(persona2);
-
 		//listaPacientes.add(persona2);
+
 
 
 		//Menú para buscar paciente; está a medio hacer, es solo de prueba, tengo que hacer un switch de casos bien hecho. 
@@ -357,6 +670,7 @@ public class Sistema {
 		}*/
 
 
+
 		//Prueba calcular edad a partir de la fecha de nacimiento
 		/*p1.setFechaNacimiento("13/04/2010");
 		p1.actualizarEdad();
@@ -364,7 +678,26 @@ public class Sistema {
 		//Prueba importar Pacientes desde una plantilla csv.
 		importarPacientesPlantillaCSV("pacientesNuevos.csv"); */
 
-	
+
+
+
+		//PRUEBAS MEMORIA PERSISTENTE - DE MOMENTO FUNCIONA CON TODO LO QUE SE GUARDA EN SISTEMA.JAVA :)
+		//Prueba importar Pacientes desde una plantilla csv.
+		//	importarPacientesPlantillaCSV("pacientesNuevos.csv");
+
+		//Prueba importar pacientes memoria persistente
+		//exportarListaPacientes("listaPacientes.age");
+
+		/*importarListas();
+		//for (Paciente p: listaPacientes) {
+			System.out.println(p.getNombre());
+		}*/
+
+		//exportarListas();
+
+		//NOTA: TODOS LOS ATRIBUTOS DE LAS CLASES QUE HEREDAN DE OTRAS, TIENEN QUE ESTAR EN "PROTECTED"
+
+		logearse();
 
 
 

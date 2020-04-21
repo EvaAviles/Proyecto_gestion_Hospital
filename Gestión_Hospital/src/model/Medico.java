@@ -1,9 +1,13 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Medico extends Usuario{
+public class Medico extends Usuario implements Serializable{
 
+	
+	//ID Memoria Persistente
+	private static final long serialVersionUID = 5008925907637094901L;
 	
 	//Relaciones
 	private ArrayList <Paciente>listaPacientes= new ArrayList<>();

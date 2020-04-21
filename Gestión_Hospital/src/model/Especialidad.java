@@ -1,9 +1,13 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Especialidad {
+public class Especialidad implements Serializable {
 	
+	//ID Memoria persistente
+	private static final long serialVersionUID = -3291350776525045543L;
+
 	private String nombre;
 	
 	//Relaciones

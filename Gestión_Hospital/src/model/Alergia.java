@@ -1,6 +1,11 @@
 package model;
 
-public class Alergia {
+import java.io.Serializable;
+
+public class Alergia implements Serializable{
+	
+	//ID para la memoria persistente
+	private static final long serialVersionUID = 1240621521273875237L;
 	
 	//Atributos
 	private String sintomas;
