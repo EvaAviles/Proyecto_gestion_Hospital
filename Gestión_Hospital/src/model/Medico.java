@@ -10,8 +10,8 @@ public class Medico extends Usuario implements Serializable{
 	private static final long serialVersionUID = 5008925907637094901L;
 	
 	//Relaciones
-	private ArrayList <Paciente>listaPacientes= new ArrayList<>();
-	private ArrayList <Receta>listaRecetas= new ArrayList<>();
+	protected ArrayList <Paciente>listaPacientes= new ArrayList<>();
+	protected ArrayList <Receta>listaRecetas= new ArrayList<>();
 	
 	//Getters y setters
 	public ArrayList<Paciente> getListaPacientes() {
@@ -30,14 +30,21 @@ public class Medico extends Usuario implements Serializable{
 		this.listaRecetas = listaRecetas;
 	}
 	
+	public void añadirReceta(Receta r) {
+		listaRecetas.add(r);
+	}
+	
+	public void añadirPaciente (Paciente p) {
+		listaPacientes.add(p);
+	}
 	//Métodos
 	public static void interfazMedico() {
 
 	}
 	
-	public Medico(String string) {
-		super(string);
-		// TODO Auto-generated constructor stub
+	public Medico(String login, String password) {
+		super(login, password);
+		
 	}
 
 }

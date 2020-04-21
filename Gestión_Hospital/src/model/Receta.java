@@ -83,4 +83,8 @@ public class Receta {
 	public static void comprobarAlergías() {
 
 	}
+	
+	public static void generarSuministros() {
+		
+	}
 }

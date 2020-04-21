@@ -58,7 +58,7 @@ public class Sistema implements Serializable{
 	}
 
 	public void setListaEnfermeros(ArrayList<Enfermero> listaEnfermeros) {
-		this.listaEnfermeros = listaEnfermeros;
+		Sistema.listaEnfermeros = listaEnfermeros;
 	}
 
 	public ArrayList<Usuario> getListaUsuarios() {
@@ -69,11 +69,11 @@ public class Sistema implements Serializable{
 		Sistema.listaUsuarios = listaUsuarios;
 	}
 
-	public static ArrayList<Medico> getListaMedicos() {
+	public ArrayList<Medico> getListaMedicos() {
 		return listaMedicos;
 	}
 
-	public static void setListaMedicos(ArrayList<Medico> listaMedicos) {
+	public void setListaMedicos(ArrayList<Medico> listaMedicos) {
 		Sistema.listaMedicos = listaMedicos;
 	}
 
@@ -90,7 +90,7 @@ public class Sistema implements Serializable{
 	}
 
 	public void setListaEspecialidades(ArrayList<Especialidad> listaEspecialidades) {
-		Sistema.listaEspecialidades = listaEspecialidades;
+		this.listaEspecialidades = listaEspecialidades;
 	}
 
 	public ArrayList<Habitacion> getListaHabitaciones() {
@@ -98,7 +98,7 @@ public class Sistema implements Serializable{
 	}
 
 	public void setListaHabitaciones(ArrayList<Habitacion> listaHabitaciones) {
-		Sistema.listaHabitaciones = listaHabitaciones;
+		this.listaHabitaciones = listaHabitaciones;
 	}
 
 	public ArrayList<Medicamento> getListaMedicamentos() {
@@ -117,11 +117,11 @@ public class Sistema implements Serializable{
 		Sistema.inventarioMedicamentos = inventarioMedicamentos;
 	}
 
-	public static ArrayList<Paciente> getListaPacientes() {
+	public ArrayList<Paciente> getListaPacientes() {
 		return listaPacientes;
 	}
 
-	public static void setListaPacientes(ArrayList<Paciente> listaPacientes) {
+	public void setListaPacientes(ArrayList<Paciente> listaPacientes) {
 		Sistema.listaPacientes = listaPacientes;
 	}
 
@@ -138,29 +138,25 @@ public class Sistema implements Serializable{
 
 	}
 
-	//Método buscar paciente
-	public static int buscarPaciente(String dato, String opcion) {	  /*como dato será el que me manda por teclado el usuario
-                                                                      como opción será nombre, apellido o habitación*/
-		int posicion=-1;
-		//opción buscar paciente por nombre
-		if (opcion.toLowerCase().equals("nombre")) {   //por si acaso, cambio lo que me manda el usuario a minúsculas
-			for (int i = 0 ; i <listaPacientes.size();i++) {    //recorro el ArrayList
-				if(dato.equals(listaPacientes.get(i).getNombre())) {    //si el nombre es igual a alguno del array, me da la posición
-					posicion=i;
-					i=listaPacientes.size();	
-				} 
-			}
-		} 
-		else if(opcion.toLowerCase().equals("apellido")) {       //Caso buscar paciente por apellido
-			for (int i = 0 ; i <listaPacientes.size();i++) {
-				if(dato.equals(listaPacientes.get(i).getApellido1())) {
-					posicion=i;
-					i=listaPacientes.size();	
-				} 
-			}
-		} //
+	//Método buscar paciente por dni
+	public int buscarPaciente(String dni) {	  //como parámetro le damos el DNI
 
-		/*	else if(opcion.toLowerCase().equals("habitacion")) { //buscar paciente por habitación
+		int posicion=-1;
+
+		for (int i = 0 ; i <listaPacientes.size();i++) {    //recorro el ArrayList
+			if(dni.equals(listaPacientes.get(i).getDni())) {    //si el dni es igual a alguno del array, me da la posición
+				posicion=i;
+				i=listaPacientes.size();	
+			} 
+		}
+		return posicion;// Si se devuelve -1 no se ha encontrado nada
+	}
+
+
+
+
+
+	/*	else if(opcion.toLowerCase().equals("habitacion")) { //buscar paciente por habitación
 
 			for (int i = 0 ; i <listaPacientes.size();i++) {
 
@@ -177,12 +173,6 @@ public class Sistema implements Serializable{
 			}
 		}*/
 
-		return posicion;// Si se devuelve -1 no se ha encontrado nada
-	}
-
-
-
-
 	public static void buscarMedicamento() {
 
 	}
@@ -196,19 +186,19 @@ public class Sistema implements Serializable{
 	}
 
 	public static void añadirPaciente(Paciente p) {//no se ha probado
-		//Faltaría añadir la comprobación del dni para asegurarnos de que no se repiten
+		//Faltaría añadir la comprobación del dni para asegurarnos de que no se repiten, comprobando el DNI
 		listaPacientes.add(p);
 	}
 
-	public static void eliminarPaciente(int i) {//no se ha probado
+	public void eliminarPaciente(int i) {//no se ha probado
 		listaPacientes.remove(i);
 	}
 
-	public static void añadirAlergia (Alergia a) {
+	public void añadirAlergia (Alergia a) {
 		listaAlergias.add(a);
 	}
 
-	public static void añadirEnfermero (Enfermero a) {
+	public void añadirEnfermero (Enfermero a) {
 		listaEnfermeros.add(a);
 	}
 
@@ -216,19 +206,19 @@ public class Sistema implements Serializable{
 		listaUsuarios.add(a);
 	}
 
-	public static void añadirMedico (Medico a) {
+	public void añadirMedico (Medico a) {
 		listaMedicos.add(a);
 	}
 
-	public static void añadirMedicamento (Medicamento a) {
+	public void añadirMedicamento (Medicamento a) {
 		listaMedicamentos.add(a);
 	}
 
-	public static void añadirEspecialidad (Especialidad a) {
+	public void añadirEspecialidad (Especialidad a) {
 		listaEspecialidades.add(a);
 	}
 
-	public static void añadirHabitacion (Habitacion a) {
+	public void añadirHabitacion (Habitacion a) {
 		listaHabitaciones.add(a);
 	}
 
@@ -634,7 +624,6 @@ public class Sistema implements Serializable{
 	//MAIN
 	public static void main(String[] args) {
 
-		listaPacientes= new ArrayList<Paciente>();
 
 		//Pruba buscar Paciente
 
@@ -681,21 +670,35 @@ public class Sistema implements Serializable{
 
 
 
+
+
 		//PRUEBAS MEMORIA PERSISTENTE - DE MOMENTO FUNCIONA CON TODO LO QUE SE GUARDA EN SISTEMA.JAVA :)
 		//Prueba importar Pacientes desde una plantilla csv.
+
 		//	importarPacientesPlantillaCSV("pacientesNuevos.csv");
+
+		//importarPacientesPlantillaCSV("pacientesNuevos.csv", s);
 
 		//Prueba importar pacientes memoria persistente
 		//exportarListaPacientes("listaPacientes.age");
 
 		/*importarListas();
-		//for (Paciente p: listaPacientes) {
+		for (Paciente p: listaPacientes) {
 			System.out.println(p.getNombre());
 		}*/
 
 		//exportarListas();
 
-		//NOTA: TODOS LOS ATRIBUTOS DE LAS CLASES QUE HEREDAN DE OTRAS, TIENEN QUE ESTAR EN "PROTECTED"
+		
+		//Prueba buscar paciente por dni
+		String dni;
+		System.out.println("Introduzca el dni que desea buscar: ");
+		Scanner teclado= new Scanner (System.in);
+		dni= teclado.nextLine();
+		System.out.println(s.buscarPaciente(dni));
+		System.out.println(s.listaPacientes.size());
+		teclado.close();
+		
 
 		logearse();
 
@@ -707,9 +710,5 @@ public class Sistema implements Serializable{
 
 
 	}
-
-
-
-
 
 }

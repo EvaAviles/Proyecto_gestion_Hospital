@@ -8,6 +8,9 @@ import java.util.ArrayList;
 
 public class Paciente implements Serializable{
 
+	//ID Memoria persistente
+	private static final long serialVersionUID = 8152466251529082349L;
+	
 	private String nombre;
 	private String apellido1;
 	private String apellido2;
@@ -166,6 +169,22 @@ public class Paciente implements Serializable{
 
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+	
+	public void añadirIngreso (IngresoHospitalario a) {
+		listaIngresos.add(a);
+	}
+	
+	public void añadirAlergia (Alergia a) {
+		listaAlergias.add(a);
+	}
+	
+	public void añadirReceta (Receta a) {
+		listaRecetas.add(a);
+	}
+	
+	public void añadirSuministro (Suministro a) {
+		listaSuministros.add(a);
 	}
 	
 

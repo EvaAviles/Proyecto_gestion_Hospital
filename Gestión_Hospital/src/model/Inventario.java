@@ -1,7 +1,12 @@
 package model;
 
-public class Inventario {
+import java.io.Serializable;
 
+public class Inventario implements Serializable{
+
+	//ID Memoria Persistente
+	private static final long serialVersionUID = -5080105661226545452L;
+	
 	//Relaciones
 	private Medicamento medicamento;
 	

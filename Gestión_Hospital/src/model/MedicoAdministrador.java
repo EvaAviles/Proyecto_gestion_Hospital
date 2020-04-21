@@ -3,9 +3,10 @@ package model;
 public class MedicoAdministrador extends Medico{
 
 	
-
+	private static final long serialVersionUID = -3812304402437247591L;
+	
 	//Atributos
-	private String email;
+	protected String email;
 
 	//Getters y setters
 	public String getEmail() {
@@ -21,8 +22,8 @@ public class MedicoAdministrador extends Medico{
 
 	}
 	
-	public MedicoAdministrador(String string) {
-		super(string);
+	public MedicoAdministrador(String login, String password) {
+		super(login, password);
 		// TODO Auto-generated constructor stub
 	}
 

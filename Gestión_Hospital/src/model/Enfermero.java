@@ -9,8 +9,8 @@ public class Enfermero extends Usuario implements Serializable{
 	private static final long serialVersionUID = 7629219017707154796L;
 	
 	//Relaciones
-	private ArrayList <Paciente>listaPacientes= new ArrayList<>();
-	private ArrayList <Suministro> listaSuministros= new ArrayList<>();
+	protected ArrayList <Paciente>listaPacientes= new ArrayList<>();
+	protected ArrayList <Suministro> listaSuministros= new ArrayList<>();
 	
 	//Getters y setters
 	public ArrayList<Paciente> getListaPacientes() {
@@ -28,15 +28,22 @@ public class Enfermero extends Usuario implements Serializable{
 	public void setListaSuministros(ArrayList<Suministro> listaSuministros) {
 		this.listaSuministros = listaSuministros;
 	}
+	
+	public void añadirPaciente (Paciente p) {
+		listaPacientes.add(p);
+	}
+	
+	public void añadirSuministro(Suministro s) {
+		listaSuministros.add(s);
+	}
 
 	//Métodos
 	public static void interfazEnfermero() {
 
 	}
 	
-	public Enfermero(String string) {
-		super(string);
-		// TODO Auto-generated constructor stub
+	public Enfermero(String login, String password) {
+		super(login, password);
 	}
 
 	
