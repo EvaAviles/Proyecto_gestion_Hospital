@@ -222,20 +222,20 @@ public class Paciente implements Serializable{
 	public void mostrarFichaPaciente() {
 		System.out.println(
 				
-				"Nombre: "+getNombre()+
-				"\n"+"Apellidos: "+getApellido1()+" "+ getApellido2()+
-				"\n"+"DNI: "+ getDni()+
-				"\n"+"Edad: "+ getEdad()+
-				"\n"+"Fecha de nacimiento: " + getFechaNacimiento()+
-				"\n"+"Sexo: "+ getSexo()+
-				"\n"+"Altura: "+getAltura()+
-				"\n"+"Peso: "+ getPeso()+
-				"\n"+"Grupo Sanguíneo: "+getGrupoSanguineo()+
-				"\n"+"Historial médico: "+ getHistorialMedico()+
-				"\n"+"Observaciones: " +getObservacionesNotas()+
-				"\n"+"Antecedentes Famliares: "+getAntecedentesFamiliares()+
-				"\n"+"Teléfono de contacto: "+ getTelefono()+
-				"\n"+"Enfermero: "+getEnfermero());
+				"\t"+"Nombre: "+getNombre()+
+				"\n"+"\t"+"Apellidos: "+getApellido1()+" "+ getApellido2()+
+				"\n"+"\t"+"DNI: "+ getDni()+
+				"\n"+"\t"+"Edad: "+ getEdad()+
+				"\n"+"\t"+"Fecha de nacimiento: " + getFechaNacimiento()+
+				"\n"+"\t"+"Sexo: "+ getSexo()+
+				"\n"+"\t"+"Altura: "+getAltura()+
+				"\n"+"\t"+"Peso: "+ getPeso()+
+				"\n"+"\t"+"Grupo Sanguíneo: "+getGrupoSanguineo()+
+				"\n"+"\t"+"Historial médico: "+ getHistorialMedico()+
+				"\n"+"\t"+"Observaciones: " +getObservacionesNotas()+
+				"\n"+"\t"+"Antecedentes Famliares: "+getAntecedentesFamiliares()+
+				"\n"+"\t"+"Teléfono de contacto: "+ getTelefono()+
+				"\n"+"\t"+"Enfermero: "+getEnfermero());
 		System.out.print("Alergias: ");
 		printAlergias();
 		

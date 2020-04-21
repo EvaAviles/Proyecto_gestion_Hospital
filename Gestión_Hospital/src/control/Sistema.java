@@ -10,105 +10,103 @@ import model.Medico;
 import model.MedicoAdministrador;
 import model.Paciente;
 import model.Usuario;
-
 import java.util.ArrayList;
-import java.util.Scanner;
 
 
 public class Sistema  {
 
 	//Relaciones - TODAS TIENEN MEMORIA PERSISTENTE
-	private ArrayList <Alergia> listaAlergias= new ArrayList<>();
-	private ArrayList <Enfermero> listaEnfermeros= new ArrayList<>();
-	private ArrayList <Usuario> listaUsuarios= new ArrayList<>();
-	private ArrayList <Medico> listaMedicos= new ArrayList<>();
-	private MedicoAdministrador medicoAdministrador;
-	private ArrayList <Especialidad> listaEspecialidades= new ArrayList<>();
-	private ArrayList <Habitacion> listaHabitaciones= new ArrayList<>();
-	private ArrayList <Medicamento> listaMedicamentos= new ArrayList<>();
-	private Inventario inventarioMedicamentos;
-	public ArrayList <Paciente>listaPacientes=new ArrayList<>();//
+	public static ArrayList <Alergia> listaAlergias= new ArrayList<>();
+	public static ArrayList <Enfermero> listaEnfermeros= new ArrayList<>();
+	public static ArrayList <Usuario> listaUsuarios= new ArrayList<>();
+	public static ArrayList <Medico> listaMedicos= new ArrayList<>();
+	public static MedicoAdministrador medicoAdministrador;
+	public static ArrayList <Especialidad> listaEspecialidades= new ArrayList<>();
+	public static ArrayList <Habitacion> listaHabitaciones= new ArrayList<>();
+	public static ArrayList <Medicamento> listaMedicamentos= new ArrayList<>();
+	public static Inventario inventarioMedicamentos;
+	public static ArrayList <Paciente>listaPacientes=new ArrayList<>();//
 
 
 	//Getters y setters
-	public ArrayList<Alergia> getListaAlergias() {
+	public static ArrayList<Alergia> getListaAlergias() {
 		return listaAlergias;
 	}
 
-	public void setListaAlergias(ArrayList<Alergia> listaAlergias) {
-		this.listaAlergias = listaAlergias;
+	public static void setListaAlergias(ArrayList<Alergia> listaAlergias) {
+		Sistema.listaAlergias = listaAlergias;
 	}
 
-	public ArrayList<Enfermero> getListaEnfermeros() {
+	public static ArrayList<Enfermero> getListaEnfermeros() {
 		return listaEnfermeros;
 	}
 
-	public void setListaEnfermeros(ArrayList<Enfermero> listaEnfermeros) {
-		this.listaEnfermeros = listaEnfermeros;
+	public static void setListaEnfermeros(ArrayList<Enfermero> listaEnfermeros) {
+		Sistema.listaEnfermeros = listaEnfermeros;
 	}
 
-	public ArrayList<Usuario> getListaUsuarios() {
+	public static ArrayList<Usuario> getListaUsuarios() {
 		return listaUsuarios;
 	}
 
-	public void setListaUsuarios(ArrayList<Usuario> listaUsuarios) {
-		this.listaUsuarios = listaUsuarios;
+	public static void setListaUsuarios(ArrayList<Usuario> listaUsuarios) {
+		Sistema.listaUsuarios = listaUsuarios;
 	}
 
-	public ArrayList<Medico> getListaMedicos() {
+	public static ArrayList<Medico> getListaMedicos() {
 		return listaMedicos;
 	}
 
-	public void setListaMedicos(ArrayList<Medico> listaMedicos) {
-		this.listaMedicos = listaMedicos;
+	public static void setListaMedicos(ArrayList<Medico> listaMedicos) {
+		Sistema.listaMedicos = listaMedicos;
 	}
 
-	public MedicoAdministrador getMedicoAdministrador() {
+	public static MedicoAdministrador getMedicoAdministrador() {
 		return medicoAdministrador;
 	}
 
-	public void setMedicoAdministrador(MedicoAdministrador medicoAdministrador) {
-		this.medicoAdministrador = medicoAdministrador;
+	public static void setMedicoAdministrador(MedicoAdministrador medicoAdministrador) {
+		Sistema.medicoAdministrador = medicoAdministrador;
 	}
 
-	public ArrayList<Especialidad> getListaEspecialidades() {
+	public static ArrayList<Especialidad> getListaEspecialidades() {
 		return listaEspecialidades;
 	}
 
-	public void setListaEspecialidades(ArrayList<Especialidad> listaEspecialidades) {
-		this.listaEspecialidades = listaEspecialidades;
+	public static void setListaEspecialidades(ArrayList<Especialidad> listaEspecialidades) {
+		Sistema.listaEspecialidades = listaEspecialidades;
 	}
 
-	public ArrayList<Habitacion> getListaHabitaciones() {
+	public static ArrayList<Habitacion> getListaHabitaciones() {
 		return listaHabitaciones;
 	}
 
-	public void setListaHabitaciones(ArrayList<Habitacion> listaHabitaciones) {
-		this.listaHabitaciones = listaHabitaciones;
+	public static void setListaHabitaciones(ArrayList<Habitacion> listaHabitaciones) {
+		Sistema.listaHabitaciones = listaHabitaciones;
 	}
 
-	public ArrayList<Medicamento> getListaMedicamentos() {
+	public static ArrayList<Medicamento> getListaMedicamentos() {
 		return listaMedicamentos;
 	}
 
-	public void setListaMedicamentos(ArrayList<Medicamento> listaMedicamentos) {
-		this.listaMedicamentos = listaMedicamentos;
+	public static void setListaMedicamentos(ArrayList<Medicamento> listaMedicamentos) {
+		Sistema.listaMedicamentos = listaMedicamentos;
 	}
 
-	public Inventario getInventarioMedicamentos() {
+	public static Inventario getInventarioMedicamentos() {
 		return inventarioMedicamentos;
 	}
 
-	public void setInventarioMedicamentos(Inventario inventarioMedicamentos) {
-		this.inventarioMedicamentos = inventarioMedicamentos;
+	public static void setInventarioMedicamentos(Inventario inventarioMedicamentos) {
+		Sistema.inventarioMedicamentos = inventarioMedicamentos;
 	}
 
-	public ArrayList<Paciente> getListaPacientes() {
+	public static ArrayList<Paciente> getListaPacientes() {
 		return listaPacientes;
 	}
 
-	public void setListaPacientes(ArrayList<Paciente> listaPacientes) {
-		this.listaPacientes = listaPacientes;
+	public static void setListaPacientes(ArrayList<Paciente> listaPacientes) {
+		Sistema.listaPacientes = listaPacientes;
 	}
 
 	//Métodos
@@ -125,7 +123,7 @@ public class Sistema  {
 	}
 
 	//Método buscar paciente por dni
-	public int buscarPaciente(String dni) {	  //como parámetro le damos el DNI
+	public static int buscarPaciente(String dni) {	  //como parámetro le damos el DNI
 
 		int posicion=-1;
 
@@ -136,6 +134,18 @@ public class Sistema  {
 			} 
 		}
 		return posicion;// Si se devuelve -1 no se ha encontrado nada
+	}
+
+	public static int buscarMedicamentoNombre (String nombre) {
+		int posicion = -1;
+		for (int i = 0 ; i <listaMedicamentos.size();i++) {    //recorro el ArrayList
+			if(nombre.equals(listaMedicamentos.get(i).getNombre())) {    //si el dni es igual a alguno del array, me da la posición
+				posicion=i;
+				i=listaMedicamentos.size();	
+			} 
+		}
+		
+		return posicion;
 	}
 
 
@@ -171,48 +181,45 @@ public class Sistema  {
 
 	}
 
-	public void añadirPaciente(Paciente p) {//no se ha probado
+	public static void añadirPaciente(Paciente p) {//no se ha probado
 		//Faltaría añadir la comprobación del dni para asegurarnos de que no se repiten, comprobando el DNI
 		listaPacientes.add(p);
 	}
 
-	public void eliminarPaciente(int i) {//no se ha probado
+	public static void eliminarPaciente(int i) {//no se ha probado
 		listaPacientes.remove(i);
 	}
 
-	public void añadirAlergia (Alergia a) {
+	public static void añadirAlergia (Alergia a) {
 		listaAlergias.add(a);
 	}
 
-	public void añadirEnfermero (Enfermero a) {
+	public static void añadirEnfermero (Enfermero a) {
 		listaEnfermeros.add(a);
 	}
 
-	public void añadirUsuario (Usuario a) {
+	public static void añadirUsuario (Usuario a) {
 		listaUsuarios.add(a);
 	}
 
-	public void añadirMedico (Medico a) {
+	public static void añadirMedico (Medico a) {
 		listaMedicos.add(a);
 	}
 
-	public void añadirMedicamento (Medicamento a) {
+	public static void añadirMedicamento (Medicamento a) {
 		listaMedicamentos.add(a);
 	}
 
-	public void añadirEspecialidad (Especialidad a) {
+	public static void añadirEspecialidad (Especialidad a) {
 		listaEspecialidades.add(a);
 	}
 
-	public void añadirHabitacion (Habitacion a) {
+	public static void añadirHabitacion (Habitacion a) {
 		listaHabitaciones.add(a);
 	}
 
 	//MAIN
 	public static void main(String[] args) {
-
-		//Esto es necesario porque se ha eliminado el static de los atributos:
-		Sistema s = new Sistema();
 
 		/*	//Pruba buscar Paciente
 		listaPacientes= new ArrayList<Paciente>();
@@ -249,7 +256,7 @@ public class Sistema  {
 			System.out.println(buscarPaciente(Integer.toString(habitacion), "HABITACION"));
 			break;	
 		}*/
-		
+
 
 		//PRUEBAS MEMORIA PERSISTENTE - DE MOMENTO FUNCIONA CON TODO LO QUE SE GUARDA EN SISTEMA.JAVA :)
 		//Prueba importar Pacientes desde una plantilla csv.
@@ -265,7 +272,7 @@ public class Sistema  {
 
 		//exportarListas();
 
-		
+		/*
 		//Prueba buscar paciente por dni
 		String dni;
 		System.out.println("Introduzca el dni que desea buscar: ");
@@ -273,11 +280,11 @@ public class Sistema  {
 		dni= teclado.nextLine();
 		System.out.println(s.buscarPaciente(dni));
 		System.out.println(s.listaPacientes.size());
-		teclado.close();
-		
+		teclado.close();*/
 
-
-
+		//Prueba informe paciente - funciona :)
+		//f.importarPacientesPlantillaCSV("pacientesNuevos.csv",s);
+		//f.exportarInformePaciente(s.listaPacientes.get(0));
 
 
 

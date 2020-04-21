@@ -2,7 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
+import java.util.Iterator;
 public class Medicamento implements Serializable{
 
 	//ID Memoria Persistente
@@ -17,8 +17,7 @@ public class Medicamento implements Serializable{
 	
 	//Relaciones
 	private Inventario inventario;
-	private ArrayList <Unidad> listaUnidadesDisponibles= new ArrayList<>() ;
-	private ArrayList <Unidad> listaUnidadesNoDisponibles= new ArrayList<>() ;
+	private ArrayList <Unidad> listaUnidades= new ArrayList<>() ;
 	private ArrayList <RegistroConsumo> listaRegistroConsumo= new ArrayList<>();
 	private EstadísticaMedicamentos estadistica;
 	private ArrayList <Alergia> listaAlergias= new ArrayList<>();
@@ -60,17 +59,11 @@ public class Medicamento implements Serializable{
 	public void setInventario(Inventario inventario) {
 		this.inventario = inventario;
 	}
-	public ArrayList<Unidad> getListaUnidadesDisponibles() {
-		return listaUnidadesDisponibles;
+	public ArrayList<Unidad> getListaUnidades() {
+		return listaUnidades;
 	}
-	public void setListaUnidadesDisponibles(ArrayList<Unidad> listaUnidadesDisponibles) {
-		this.listaUnidadesDisponibles = listaUnidadesDisponibles;
-	}
-	public ArrayList<Unidad> getListaUnidadesNoDisponibles() {
-		return listaUnidadesNoDisponibles;
-	}
-	public void setListaUnidadesNoDisponibles(ArrayList<Unidad> listaUnidadesNoDisponibles) {
-		this.listaUnidadesNoDisponibles = listaUnidadesNoDisponibles;
+	public void setListaUnidades(ArrayList<Unidad> listaUnidadesDisponibles) {
+		this.listaUnidades = listaUnidadesDisponibles;
 	}
 	public ArrayList<RegistroConsumo> getListaRegistroConsumo() {
 		return listaRegistroConsumo;
@@ -99,15 +92,75 @@ public class Medicamento implements Serializable{
 		listaAlergias.add(a);
 	}
 	
-	public void añadirUnidadDisponible (Unidad a) {
-		listaUnidadesDisponibles.add(a);
+	public void añadirUnidad (Unidad a) {
+		listaUnidades.add(a);
 	}
 	
-	public void añadirUnidadNoDisponible (Unidad a) {
-		listaUnidadesNoDisponibles.add(a);
-	}
 	
 	//Métodos
+	/*public Boolean gastarUnidad (Medicamento m) {
+		
+	}*/
+	
+	public Boolean comprobarAlergías (Paciente p) {//Funciona correctamente
+		Boolean coincidencia = false;
+		for (Alergia a: listaAlergias) {
+			for (Alergia b: p.getListaAlergias()) {
+				if (b.compareTo(a)==0) {
+					coincidencia = true; //Si hay una coincidencia, devuelve un true
+				}
+			}
+		}
+		return coincidencia;
+		
+	}
+	
+	public Boolean comprobarUnidadesDisponibles (int numDosis) {
+		int unidadesDisponibles=0;
+		Boolean existen = false; //Por defecto no hay sufiecientes unidades (suposición)
+		//Recorremos la lista de Unidades del medicamento
+		for (Unidad u: listaUnidades) {
+			if (u.getDisponible()==true) {
+				unidadesDisponibles++;//Contamos la unidad si está disponible
+			}
+		}
+		//Si hay más o iguales unidades disponibles que el numDosis devolvemos un true
+		if (unidadesDisponibles >= numDosis) {
+			existen=true;
+		}
+		return existen;
+	}
+	
+	public Unidad asignarUnidad () {
+		int i=0;
+		Boolean asignado=false;
+		//Vamos a recorrer la lista de unidades con un iterador:
+		Iterator<Unidad> it = listaUnidades.iterator();
+		while(it.hasNext() && asignado==false){
+			Unidad u = it.next();
+			if (u.getDisponible()==true) {
+				//Cambiamos la disponibilidad de la unidad
+				u.setDisponible(false);
+				//Además, descontamos una unidad disponible en el stock
+				setStockDisponible(getStockDisponible()-1);
+				i=buscarUnidadID(u.getIdentificador());
+			}
+		}
+		return listaUnidades.get(i);//Devolvemos esa unidad
+		
+	}
+	
+	public int buscarUnidadID(String ID) {
+		int posicion =0;
+		for (int i = 0 ; i <listaUnidades.size();i++) {    //recorro el ArrayList
+			if(nombre.equals(listaUnidades.get(i).getIdentificador())) {    //si el dni es igual a alguno del array, me da la posición
+				posicion=i;
+				i=listaUnidades.size();	
+			} 
+		}
+		return posicion;
+	}
+	
 	public static void mostrarMedicamento() {
 
 	}

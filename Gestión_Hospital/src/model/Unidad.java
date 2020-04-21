@@ -5,12 +5,13 @@ import java.util.Date;
 public class Unidad {
 
 	private Date fechaCaducidad;
-	private Long identificador;
-	
+	private String identificador;
+	private Boolean disponible=true; //Por defecto, una unidad está disponible
+
 	//Relaciones
 	private Suministro suministro;
 	private Medicamento medicamento;
-	
+
 	//Getters y setters
 	public Date getFechaCaducidad() {
 		return fechaCaducidad;
@@ -20,11 +21,11 @@ public class Unidad {
 		this.fechaCaducidad = fechaCaducidad;
 	}
 
-	public Long getIdentificador() {
+	public String getIdentificador() {
 		return identificador;
 	}
 
-	public void setIdentificador(Long identificador) {
+	public void setIdentificador(String identificador) {
 		this.identificador = identificador;
 	}
 
@@ -43,11 +44,25 @@ public class Unidad {
 	public void setMedicamento(Medicamento medicamento) {
 		this.medicamento = medicamento;
 	}
-	
+
+	public Boolean getDisponible() {
+		return disponible;
+	}
+
+	public void setDisponible(Boolean disponible) {
+		this.disponible = disponible;
+	}
+
+
+
 	//Métodos
 	public static void avisoCaducidad() {
 
 	}
 
+
+
 	
+
+
 }

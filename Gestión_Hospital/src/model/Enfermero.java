@@ -44,7 +44,10 @@ public class Enfermero extends Usuario implements Serializable{
 	
 	public Enfermero(String string) {
 		super(string);
-		// TODO Auto-generated constructor stub
+	}
+	
+	public static void suministrarUnidad () {
+		
 	}
 
 	

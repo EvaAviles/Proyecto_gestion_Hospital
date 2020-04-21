@@ -46,5 +46,9 @@ public class Medico extends Usuario implements Serializable{
 		super(string);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public static void recetarMedicamento() {
+		
+	}
 
 }
