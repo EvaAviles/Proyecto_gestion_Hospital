@@ -9,8 +9,10 @@ import model.Medicamento;
 import model.Medico;
 import model.MedicoAdministrador;
 import model.Paciente;
+import model.RegistroConsumo;
 import model.Usuario;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class Sistema  {
@@ -145,13 +147,8 @@ public class Sistema  {
 				i=listaMedicamentos.size();	
 			} 
 		}
-		
 		return posicion;
 	}
-
-
-
-
 
 	/*	else if(opcion.toLowerCase().equals("habitacion")) { //buscar paciente por habitación
 
@@ -217,6 +214,33 @@ public class Sistema  {
 
 	public static void añadirHabitacion (Habitacion a) {
 		listaHabitaciones.add(a);
+	}
+	
+	//Este método debe estar siempre en el main!!
+	public static void generarRegistrosDia () {
+		//Creamos la fecha de hoy
+		Date hoy = new Date();
+		//Primero comprobamos que no se haya creado ningún registro de ese día
+		Boolean done = false;
+		for (Medicamento m: listaMedicamentos) {
+			for (RegistroConsumo r: m.getListaRegistroConsumo()) {
+				if (r.getFechaConsumo().equals(hoy)) {
+					done =true;
+				}
+			}
+		}
+		//Si no se han creado registros ese día, recorremos la lista de medicamentos
+		if (done == false) {
+			for (Medicamento m: listaMedicamentos) {
+				//Para cada medicamento creamos un nuevo RegistroConsumo con la fecha actual
+				RegistroConsumo s = new RegistroConsumo();
+				s.setFechaConsumo(hoy);
+				//Añadimos el registro a la lista de registros del medicamento
+				m.añadirRegistroConsumo(s);
+			}
+		}
+		
+		
 	}
 
 	//MAIN

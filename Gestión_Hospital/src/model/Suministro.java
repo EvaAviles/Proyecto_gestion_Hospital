@@ -88,8 +88,9 @@ public class Suministro {
 	
 	//Métodos
 	public static void suministrarUnidad() {
-		
-		
+		//Cuando se suministra la unidad, se borra la unidad, ya que ya no nos hace falta
+	
 		//setSuministro(true);
+		//Lo que ocurre también, es que debemos contabilizar ese consumo en el día específico
 	}
 }

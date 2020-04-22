@@ -2,15 +2,14 @@ package model;
 
 import java.util.Date;
 
-public class Unidad {
+public class Unidad implements Comparable<Unidad>{
 
 	private Date fechaCaducidad;
-	private String identificador;
-	private Boolean disponible=true; //Por defecto, una unidad está disponible
+	private Boolean disponible=true;
 
 	//Relaciones
-	private Suministro suministro;
 	private Medicamento medicamento;
+	private Suministro suministro;
 
 	//Getters y setters
 	public Date getFechaCaducidad() {
@@ -21,14 +20,14 @@ public class Unidad {
 		this.fechaCaducidad = fechaCaducidad;
 	}
 
-	public String getIdentificador() {
-		return identificador;
+	public Medicamento getMedicamento() {
+		return medicamento;
 	}
 
-	public void setIdentificador(String identificador) {
-		this.identificador = identificador;
+	public void setMedicamento(Medicamento medicamento) {
+		this.medicamento = medicamento;
 	}
-
+	
 	public Suministro getSuministro() {
 		return suministro;
 	}
@@ -37,12 +36,15 @@ public class Unidad {
 		this.suministro = suministro;
 	}
 
-	public Medicamento getMedicamento() {
-		return medicamento;
-	}
-
-	public void setMedicamento(Medicamento medicamento) {
-		this.medicamento = medicamento;
+	@Override
+	public int compareTo(Unidad o) {//Comparamos las fechas
+		if (getFechaCaducidad().after(o.getFechaCaducidad())) {
+			return -1;
+		}else if(getFechaCaducidad().before(o.getFechaCaducidad())) {
+			return 1;
+		}else {//Son iguales
+			return 0;
+		}
 	}
 
 	public Boolean getDisponible() {
@@ -53,12 +55,10 @@ public class Unidad {
 		this.disponible = disponible;
 	}
 
-
+	
 
 	//Métodos
-	public static void avisoCaducidad() {
 
-	}
 
 
 

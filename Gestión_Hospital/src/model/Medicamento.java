@@ -2,7 +2,8 @@ package model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Collections;
+
 public class Medicamento implements Serializable{
 
 	//ID Memoria Persistente
@@ -98,9 +99,6 @@ public class Medicamento implements Serializable{
 	
 	
 	//Métodos
-	/*public Boolean gastarUnidad (Medicamento m) {
-		
-	}*/
 	
 	public Boolean comprobarAlergías (Paciente p) {//Funciona correctamente
 		Boolean coincidencia = false;
@@ -132,33 +130,26 @@ public class Medicamento implements Serializable{
 	}
 	
 	public Unidad asignarUnidad () {
-		int i=0;
-		Boolean asignado=false;
-		//Vamos a recorrer la lista de unidades con un iterador:
-		Iterator<Unidad> it = listaUnidades.iterator();
-		while(it.hasNext() && asignado==false){
-			Unidad u = it.next();
-			if (u.getDisponible()==true) {
-				//Cambiamos la disponibilidad de la unidad
-				u.setDisponible(false);
-				//Además, descontamos una unidad disponible en el stock
-				setStockDisponible(getStockDisponible()-1);
-				i=buscarUnidadID(u.getIdentificador());
-			}
+		//Primero ordenamos la lista de unidades por fecha
+		//De esta forma asignamos primero la unidad que caduca antes
+		Collections.sort(getListaUnidades());
+		//Recorremos la lista de unidades
+		int posicion = -1;
+		int i;
+		for (i=0;i <getListaUnidades().size();i++) {   
+			if(listaUnidades.get(i).getDisponible()==true) {   
+				posicion=i;
+				//Especificamos que la unidad no está disponible
+				listaUnidades.get(i).setDisponible(false);
+				i=getListaUnidades().size();
+			} 
 		}
-		return listaUnidades.get(i);//Devolvemos esa unidad
+		return listaUnidades.get(posicion);//Devolvemos esa unidad
 		
 	}
 	
-	public int buscarUnidadID(String ID) {
-		int posicion =0;
-		for (int i = 0 ; i <listaUnidades.size();i++) {    //recorro el ArrayList
-			if(nombre.equals(listaUnidades.get(i).getIdentificador())) {    //si el dni es igual a alguno del array, me da la posición
-				posicion=i;
-				i=listaUnidades.size();	
-			} 
-		}
-		return posicion;
+	public static void avisoCaducidad() {
+
 	}
 	
 	public static void mostrarMedicamento() {
