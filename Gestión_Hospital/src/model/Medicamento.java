@@ -252,7 +252,8 @@ public class Medicamento implements Serializable{
 			teclado.nextLine();
 
 		} while (!respuesta.equals("si"));
-		listaMedicamentos.add(m); 			//Si la respuesta es si, el medicamento se añadirá en la lista de medicamentos.   
+		listaMedicamentos.add(m); 			//Si la respuesta es si, el medicamento se añadirá en la lista de medicamentos.  
+		teclado.close();
 	}
 
 
@@ -276,6 +277,7 @@ public class Medicamento implements Serializable{
 			}
 		}while(!respuesta.equals("no"));
 	}*/
+	
 	public static void borrarMedicamento() {
 
 	}

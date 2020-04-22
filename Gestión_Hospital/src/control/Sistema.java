@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 
 
 public class Sistema  {
@@ -34,7 +36,6 @@ public class Sistema  {
 	
 	//Esto tampoco tiene sentido
 	private static Medicamento m;
-
 
 	//Getters y setters
 	public ArrayList<Alergia> getListaAlergias() {
@@ -248,6 +249,33 @@ public class Sistema  {
 		
 		
 	}
+	
+	public static void logearse1() {
+
+		String pass=""; //La inicializamos en nula
+		String usuario="";
+		
+		//Con un bucle buscamos la contraseña y usuario
+		boolean acceso=false;
+		while(acceso==false) { //Mientras q no sean correctos los datos no acaba el bucle
+			//Aparecen mis ventanas para escribir usuario y contraseña
+			usuario=JOptionPane.showInputDialog("Usuario: ");
+			pass=JOptionPane.showInputDialog("Password: ");
+			//Recorro mi listaUsuarios para saber si coinciden
+			for (int i=0; i<listaUsuarios.size(); i++) {
+				if(usuario.equals(listaUsuarios.get(i).getLogin()) &&
+						pass.equals(listaUsuarios.get(i).getPassword())) {
+					//Si coinciden entro en el sistema e imprimo mensajito
+					JOptionPane.showMessageDialog(null, "Bienvenid@ al sistema");
+					acceso=true;
+				}else {
+					//Sige mi bucle e imprimo mensajito
+					acceso=false;
+					JOptionPane.showMessageDialog(null, "El usuario o contraseña no coinciden");
+				}
+			}
+		}
+	}
 
 	//MAIN
 	public static void main(String[] args) {
@@ -306,6 +334,14 @@ public class Sistema  {
 
 		Sistema.m= new Medicamento();
 		m.crearListaMedicamentos();
+		
+		//Prueba usuario, login
+		Usuario u = new Usuario ("123","123");
+		Usuario p = new Usuario ("222a","123");
+		añadirUsuario(u);
+		añadirUsuario(p);
+		logearse1();
+		
 		//m.añadirMedicamento();
 
 		//Prueba buscar medicamento por nombre

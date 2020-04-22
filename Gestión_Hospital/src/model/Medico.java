@@ -42,9 +42,8 @@ public class Medico extends Usuario implements Serializable{
 
 	}
 	
-	public Medico(String string) {
-		super(string);
-		// TODO Auto-generated constructor stub
+	public Medico(String login, String pass) {
+		super(login, pass);
 	}
 	
 	public static void recetarMedicamento() {

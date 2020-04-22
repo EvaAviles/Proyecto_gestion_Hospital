@@ -2,7 +2,7 @@ package model;
 
 import java.io.Serializable;
 
-public class Usuario extends Paciente implements Serializable{
+public class Usuario implements Serializable{
 
 	//ID Memoria Persistente
 	private static final long serialVersionUID = 5329259474600388330L;
@@ -13,6 +13,11 @@ public class Usuario extends Paciente implements Serializable{
 	private Especialidad especialidad;
 
 	//Getters y setters
+	public Usuario (String login, String password) {
+		this.login=login;
+		this.password= password;
+	}
+	
 	public String getLogin() {
 		return login;
 	}
@@ -40,9 +45,5 @@ public class Usuario extends Paciente implements Serializable{
 	public static void crearUsuario() {
 
 	}
-	
-	public Usuario(String string) {
-		super(string);
-		// TODO Auto-generated constructor stub
-	}
+
 }

@@ -42,8 +42,8 @@ public class Enfermero extends Usuario implements Serializable{
 
 	}
 	
-	public Enfermero(String string) {
-		super(string);
+	public Enfermero(String login, String pass) {
+		super(login, pass);
 	}
 	
 	public static void suministrarUnidad () {
