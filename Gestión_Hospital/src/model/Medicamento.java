@@ -99,7 +99,6 @@ public class Medicamento implements Serializable{
 	
 	
 	//Métodos
-	
 	public Boolean comprobarAlergías (Paciente p) {//Funciona correctamente
 		Boolean coincidencia = false;
 		for (Alergia a: listaAlergias) {

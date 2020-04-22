@@ -70,6 +70,7 @@ public class Receta {
 	
 	//Métodos
 	public void crearReceta (String descripcion, int numDosis, int intervaloHoras, Medico medico, Paciente paciente, Medicamento medicamento ) { 
+		//Le pedimos a qué paciente quiere recetar
 		//Le pedimos el medicamento que quiere recetar
 		
 		//Comprobamos las alergías
