@@ -3,6 +3,7 @@ package model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Scanner;
 public class Medicamento implements Serializable{
 
 	//ID Memoria Persistente
@@ -39,7 +40,10 @@ public class Medicamento implements Serializable{
 	}
 
 	//Getters y setters
-
+	
+	public Medicamento() {
+		
+	}
 	public String getNombre() {
 		return nombre;
 	}
@@ -190,6 +194,10 @@ public class Medicamento implements Serializable{
 
 	}
 
+	private int buscarUnidadID(String identificador) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	//Método buscar medicamento por su nombre
 	public int buscarMedicamento(String nombre) { //como parámetro le damos el nombre del medicamento
 
