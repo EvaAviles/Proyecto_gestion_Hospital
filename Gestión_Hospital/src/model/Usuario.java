@@ -1,8 +1,10 @@
 package model;
-
 import java.io.Serializable;
 
 public class Usuario implements Serializable{
+
+	private String usuario; //este será el número de empleado
+
 
 	//ID Memoria Persistente
 	private static final long serialVersionUID = 5329259474600388330L;
@@ -12,17 +14,24 @@ public class Usuario implements Serializable{
 	//Relaciones
 	private Especialidad especialidad;
 
+
 	//Getters y setters
-	public Usuario (String login, String password) {
-		this.login=login;
-		this.password= password;
-	}
-	
+
 	public String getLogin() {
 		return login;
 	}
-	public void setLogin(String login) {
-		this.login = login;
+	//Constructor
+	public Usuario(String usuario, String password){
+		this.usuario=usuario;
+		this.password=password;
+	}
+
+	//Getters y setters
+	public String getUsuario() {
+		return usuario;
+	}
+	public void setusuario(String usuario) {
+		this.usuario = usuario;
 	}
 	public String getPassword() {
 		return password;
@@ -36,9 +45,9 @@ public class Usuario implements Serializable{
 	public void setEspecialidad(Especialidad especialidad) {
 		this.especialidad = especialidad;
 	}
-	
+
 	//Métodos
-	
+
 	public static void eliminarUsuario() {
 
 	}

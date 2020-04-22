@@ -22,9 +22,9 @@ public class MedicoAdministrador extends Medico{
 
 	}
 	
-	public MedicoAdministrador(String login, String pass) {
-		super(login, pass);
-		// TODO Auto-generated constructor stub
+	public MedicoAdministrador(String login, String password) {
+		super(login, password);
+
 	}
 
 }

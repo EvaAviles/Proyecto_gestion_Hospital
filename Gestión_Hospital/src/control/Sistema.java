@@ -11,16 +11,18 @@ import model.MedicoAdministrador;
 import model.Paciente;
 import model.RegistroConsumo;
 import model.Usuario;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
-
 import javax.swing.JOptionPane;
 
 
 
-public class Sistema  {
+public class Sistema implements Serializable{
+
+	//No borrar el serialVersionUID - es para la memoria persistente
+	private static final long serialVersionUID = -889616695493948313L;
 
 	//Relaciones - TODAS TIENEN MEMORIA PERSISTENTE
 	public static ArrayList <Alergia> listaAlergias= new ArrayList<>();
@@ -32,7 +34,7 @@ public class Sistema  {
 	public static ArrayList <Habitacion> listaHabitaciones= new ArrayList<>();
 	public static ArrayList <Medicamento> listaMedicamentos= new ArrayList<>();
 	public static Inventario inventarioMedicamentos;
-	public static ArrayList <Paciente>listaPacientes=new ArrayList<>();
+	public static ArrayList <Paciente>listaPacientes=new ArrayList<>();//
 	
 	//Esto tampoco tiene sentido
 	private static Medicamento m;
@@ -65,6 +67,7 @@ public class Sistema  {
 	public ArrayList<Medico> getListaMedicos() {
 		return listaMedicos;
 	}
+
 
 	public void setListaMedicos(ArrayList<Medico> listaMedicos) {
 		Sistema.listaMedicos = listaMedicos;
@@ -99,6 +102,7 @@ public class Sistema  {
 	}
 
 	public void setListaMedicamentos(ArrayList<Medicamento> listaMedicamentos) {
+
 		Sistema.listaMedicamentos = listaMedicamentos;
 	}
 
@@ -106,7 +110,9 @@ public class Sistema  {
 		return inventarioMedicamentos;
 	}
 
+
 	public static void setInventarioMedicamentos(Inventario inventarioMedicamentos) {
+
 		Sistema.inventarioMedicamentos = inventarioMedicamentos;
 	}
 
@@ -157,23 +163,9 @@ public class Sistema  {
 		return posicion;
 	}
 
-	/*	else if(opcion.toLowerCase().equals("habitacion")) { //buscar paciente por habitación
 
-			for (int i = 0 ; i <listaPacientes.size();i++) {
-
-				else if(opcion.toLowerCase().equals("habitacion")) {     //buscar paciente por habitación
-					for (int i = 0 ; i <listaPacientes.size();i++) {				 
-						if(dato.equals(listaPacientes.get(i).getHabitacionActual().getNombre())) {
-
-							posicion=i;
-							i=listaPacientes.size();
-						}
-					}
-				}
-				return posicion;
-			}
-		}*/
-
+	public static void buscarMedicamento() {
+	}
 
 
 	public static void buscarUsuario() {
@@ -222,6 +214,7 @@ public class Sistema  {
 	public static void añadirHabitacion (Habitacion a) {
 		listaHabitaciones.add(a);
 	}
+
 	
 	//Este método debe estar siempre en el main!!
 	public static void generarRegistrosDia () {
@@ -277,7 +270,10 @@ public class Sistema  {
 		}
 	}
 
+
 	//MAIN
+
+
 	public static void main(String[] args) {
 
 		Scanner teclado= new Scanner (System.in);
@@ -285,8 +281,16 @@ public class Sistema  {
 
 		/*	//Pruba buscar Paciente
 		listaPacientes= new ArrayList<Paciente>();
+<<<<<<< HEAD
 
+
+=======
+
+>>>>>>> branch 'master' of https://github.com/EvaAviles/Proyecto_gestion_Hospital.git
 		//Pruba buscar Paciente
+
+		//listaPacientes= new ArrayList<Paciente>();
+
 		//listaPacientes= new ArrayList<Paciente>();
 
 		//Paciente persona1= new Paciente ("Olga","Moreno", 12, 'M',1);
@@ -295,21 +299,31 @@ public class Sistema  {
 
 		listaPacientes.add(persona2);
 
-
 		//listaPacientes.add(persona2);
-
-
 
 		//Menú para buscar paciente; está a medio hacer, es solo de prueba, tengo que hacer un switch de casos bien hecho. 
 			System.out.println("Introduzca la habitación que desea buscar: ");
 			habitacion= teclado.nextInt();
 			System.out.println(buscarPaciente(Integer.toString(habitacion), "HABITACION"));
 			break;	
+
 		}*/
+
+
+
+		//Prueba calcular edad a partir de la fecha de nacimiento
+		/*p1.setFechaNacimiento("13/04/2010");
+		p1.actualizarEdad();
+		System.out.println("Edad: "+ p1.getEdad());
+		//Prueba importar Pacientes desde una plantilla csv.
+		importarPacientesPlantillaCSV("pacientesNuevos.csv"); */
 
 
 		//PRUEBAS MEMORIA PERSISTENTE - DE MOMENTO FUNCIONA CON TODO LO QUE SE GUARDA EN SISTEMA.JAVA :)
 		//Prueba importar Pacientes desde una plantilla csv.
+
+		//	importarPacientesPlantillaCSV("pacientesNuevos.csv");
+
 		//importarPacientesPlantillaCSV("pacientesNuevos.csv", s);
 
 		//Prueba importar pacientes memoria persistente
@@ -332,6 +346,10 @@ public class Sistema  {
 		System.out.println(s.listaPacientes.size());
 		teclado.close();*/
 
+		//Prueba informe paciente - funciona :)
+		//f.importarPacientesPlantillaCSV("pacientesNuevos.csv",s);
+		//f.exportarInformePaciente(s.listaPacientes.get(0));
+
 		Sistema.m= new Medicamento();
 		m.crearListaMedicamentos();
 		
@@ -344,6 +362,7 @@ public class Sistema  {
 		
 		//m.añadirMedicamento();
 
+
 		//Prueba buscar medicamento por nombre
 		/*String nombre;
 		System.out.println("Introduzca el medicamento: ");
@@ -352,5 +371,7 @@ public class Sistema  {
 		//System.out.println(m.buscarMedicamento(nombre));
 		teclado.close();
 
+
 	}
+
 }

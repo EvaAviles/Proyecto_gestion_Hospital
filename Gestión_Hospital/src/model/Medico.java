@@ -42,8 +42,9 @@ public class Medico extends Usuario implements Serializable{
 
 	}
 	
-	public Medico(String login, String pass) {
-		super(login, pass);
+	public Medico(String login, String password) {
+		super(login, password);
+
 	}
 	
 	public static void recetarMedicamento() {
