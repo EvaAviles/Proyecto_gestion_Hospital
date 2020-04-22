@@ -22,7 +22,7 @@ public class Medicamento implements Serializable{
 	private ArrayList <RegistroConsumo> listaRegistroConsumo= new ArrayList<>();
 	private EstadísticaMedicamentos estadistica;
 	private ArrayList <Alergia> listaAlergias= new ArrayList<>();
-	public ArrayList <Medicamento> listaMedicamentos= new ArrayList<>();
+	private static  ArrayList <Medicamento> listaMedicamentos= new ArrayList<>();
 
 	public Medicamento(String nombre, int stockDeseado, int stockDisponible, double precioUnidad, String dosis) {
 
@@ -33,6 +33,8 @@ public class Medicamento implements Serializable{
 		this.dosis=dosis;
 
 	}
+	
+
 	@Override
 	public String toString() {
 		return "Medicamento: " + nombre + "\nStockDeseado: " + stockDeseado + ", StockDisponible: "
@@ -128,21 +130,21 @@ public class Medicamento implements Serializable{
 		Medicamento Eutirox= new Medicamento("eutirox", 20000, 330000, 4.33, "0,1mg");
 		Medicamento Ventolin= new Medicamento("ventolin", 20000, 100000, 2.59, "0,1mg");
 		Medicamento Ibuprofeno=new Medicamento ("ibuprofeno", 20000, 80000, 1.97, "600mg");
-		Medicamento Trankimazin= new Medicamento("trankimazin", 20000, 25000, 4.84, "2mg"); //bajo el stock deseado
+		Medicamento Trankimazin= new Medicamento("trankimazin", 20000, 0, 4.84, "2mg"); //bajo el stock deseado
 		Medicamento Orfidal= new Medicamento ("orfidal", 20000, 180000, 1.72, "1mg");
 		Medicamento Adiro =new Medicamento("adiro", 20000, 135000, 1.45, "100mg"); 
 		Medicamento Sintrom= new Medicamento("sintrom", 20000, 70000, 2.33, "4mg");
 
-		this.listaMedicamentos.add(Nolotil);
-		this.listaMedicamentos.add(Enantyum);
-		this.listaMedicamentos.add(Paracetamol);
-		this.listaMedicamentos.add(Eutirox);
-		this.listaMedicamentos.add(Ventolin);
-		this.listaMedicamentos.add(Ibuprofeno);
-		this.listaMedicamentos.add(Trankimazin);
-		this.listaMedicamentos.add(Orfidal);
-		this.listaMedicamentos.add(Adiro);
-		this.listaMedicamentos.add(Sintrom);		
+		Medicamento.listaMedicamentos.add(Nolotil);
+		Medicamento.listaMedicamentos.add(Enantyum);
+		Medicamento.listaMedicamentos.add(Paracetamol);
+		Medicamento.listaMedicamentos.add(Eutirox);
+		Medicamento.listaMedicamentos.add(Ventolin);
+		Medicamento.listaMedicamentos.add(Ibuprofeno);
+		Medicamento.listaMedicamentos.add(Trankimazin);
+		Medicamento.listaMedicamentos.add(Orfidal);
+		Medicamento.listaMedicamentos.add(Adiro);
+		Medicamento.listaMedicamentos.add(Sintrom);		
 	}
 
 	public Boolean comprobarAlergías (Paciente p) {//Funciona correctamente
@@ -290,7 +292,18 @@ public class Medicamento implements Serializable{
 	public static void añadirUnidades() {
 
 	}
+	
 	public static void avisoBajoStock() {
-
+		
+		for(int i=0; i<listaMedicamentos.size();i++) {
+			
+			if(listaMedicamentos.get(i).getStockDisponible()< 
+					listaMedicamentos.get(i).getStockDeseado()) {
+				
+				System.out.print("AVISO IMPORTANTE el fármaco "+ listaMedicamentos.get(i).getNombre().toString()
+						+" está "+ "por debajo del stock deseado le recomendamos que lo reponga urgentemente");
+			}
+		}
 	}
+	
 }

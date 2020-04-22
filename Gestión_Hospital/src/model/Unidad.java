@@ -59,7 +59,9 @@ public class Unidad implements Comparable<Unidad>{
 
 	//Métodos
 
-
+	public void avisoCaducidad() {
+		
+	}
 
 
 	

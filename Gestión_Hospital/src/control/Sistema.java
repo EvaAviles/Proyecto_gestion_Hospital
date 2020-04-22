@@ -11,6 +11,8 @@ import model.MedicoAdministrador;
 import model.Paciente;
 import model.RegistroConsumo;
 import model.Usuario;
+
+import java.awt.Image;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -254,6 +256,7 @@ public class Sistema implements Serializable{
 			//Aparecen mis ventanas para escribir usuario y contraseña
 			usuario=JOptionPane.showInputDialog("Usuario: ");
 			pass=JOptionPane.showInputDialog("Password: ");
+			
 			//Recorro mi listaUsuarios para saber si coinciden
 			for (int i=0; i<listaUsuarios.size(); i++) {
 				if(usuario.equals(listaUsuarios.get(i).getLogin()) &&
@@ -263,8 +266,8 @@ public class Sistema implements Serializable{
 					acceso=true;
 				}else {
 					//Sige mi bucle e imprimo mensajito
-					acceso=false;
 					JOptionPane.showMessageDialog(null, "El usuario o contraseña no coinciden");
+
 				}
 			}
 		}
@@ -281,12 +284,6 @@ public class Sistema implements Serializable{
 
 		/*	//Pruba buscar Paciente
 		listaPacientes= new ArrayList<Paciente>();
-<<<<<<< HEAD
-
-
-=======
-
->>>>>>> branch 'master' of https://github.com/EvaAviles/Proyecto_gestion_Hospital.git
 		//Pruba buscar Paciente
 
 		//listaPacientes= new ArrayList<Paciente>();
@@ -354,7 +351,7 @@ public class Sistema implements Serializable{
 		m.crearListaMedicamentos();
 		
 		//Prueba usuario, login
-		Usuario u = new Usuario ("123","123");
+	/*	Usuario u = new Usuario ("123","123");
 		Usuario p = new Usuario ("222a","123");
 		añadirUsuario(u);
 		añadirUsuario(p);
@@ -369,6 +366,8 @@ public class Sistema implements Serializable{
 		nombre= teclado.nextLine();
 		m.verMedicamento(m.buscarMedicamento(nombre));*/
 		//System.out.println(m.buscarMedicamento(nombre));
+		
+		
 		teclado.close();
 
 
