@@ -69,8 +69,10 @@ public class Receta {
 	}
 	
 	//Métodos
-	public void crearReceta (String descripcion, int numDosis, int intervaloHoras, Medico medico, Paciente paciente, Medicamento medicamento ) { //Realmente esto es como un contructor de Receta
-		//La idea es que por consola se pidan y validen los datos, y después pasarle los datos a este método
+	public void crearReceta (String descripcion, int numDosis, int intervaloHoras, Medico medico, Paciente paciente, Medicamento medicamento ) { 
+		//Le pedimos a qué paciente quiere recetar
+		//Le pedimos el medicamento que quiere recetar
+		
 		//Comprobamos las alergías
 		if(medicamento.comprobarAlergías(paciente)==false) {//Si no hay ninguna coincidencia...
 			//Hora de generar los suministros deacuerdo con la prescripción (interválo de horas y número de dosis)

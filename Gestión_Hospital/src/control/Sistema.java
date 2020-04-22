@@ -9,9 +9,15 @@ import model.Medicamento;
 import model.Medico;
 import model.MedicoAdministrador;
 import model.Paciente;
+import model.RegistroConsumo;
 import model.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Scanner;
+
 
 import javax.swing.JOptionPane;
 
@@ -32,48 +38,46 @@ public class Sistema implements Serializable{
 	public static ArrayList <Medicamento> listaMedicamentos= new ArrayList<>();
 	public static Inventario inventarioMedicamentos;
 	public static ArrayList <Paciente>listaPacientes=new ArrayList<>();//
+	
+	//Esto tampoco tiene sentido
+	private static Medicamento m;
 
 
 	//Getters y setters
-	public static ArrayList<Alergia> getListaAlergias() {
+	public ArrayList<Alergia> getListaAlergias() {
 		return listaAlergias;
 	}
 
-	public static void setListaAlergias(ArrayList<Alergia> listaAlergias) {
+	public void setListaAlergias(ArrayList<Alergia> listaAlergias) {
 		Sistema.listaAlergias = listaAlergias;
 	}
 
-	public static ArrayList<Enfermero> getListaEnfermeros() {
+	public ArrayList<Enfermero> getListaEnfermeros() {
 		return listaEnfermeros;
 	}
 
-
-	public static void setListaEnfermeros(ArrayList<Enfermero> listaEnfermeros) {
-
+	public void setListaEnfermeros(ArrayList<Enfermero> listaEnfermeros) {
 		Sistema.listaEnfermeros = listaEnfermeros;
 	}
 
-	public static ArrayList<Usuario> getListaUsuarios() {
+	public ArrayList<Usuario> getListaUsuarios() {
 		return listaUsuarios;
 	}
 
-
-	public static void setListaUsuarios(ArrayList<Usuario> listaUsuarios) {
-
+	public void setListaUsuarios(ArrayList<Usuario> listaUsuarios) {
 		Sistema.listaUsuarios = listaUsuarios;
 	}
 
-	public static ArrayList<Medico> getListaMedicos() {
+	public ArrayList<Medico> getListaMedicos() {
 		return listaMedicos;
 	}
 
 
-
-	public static void setListaMedicos(ArrayList<Medico> listaMedicos) {
+	public void setListaMedicos(ArrayList<Medico> listaMedicos) {
 		Sistema.listaMedicos = listaMedicos;
 	}
 
-	public static MedicoAdministrador getMedicoAdministrador() {
+	public MedicoAdministrador getMedicoAdministrador() {
 		return medicoAdministrador;
 	}
 
@@ -85,28 +89,28 @@ public class Sistema implements Serializable{
 		return listaEspecialidades;
 	}
 
-	public static void setListaEspecialidades(ArrayList<Especialidad> listaEspecialidades) {
+	public void setListaEspecialidades(ArrayList<Especialidad> listaEspecialidades) {
 		Sistema.listaEspecialidades = listaEspecialidades;
 	}
 
-	public static ArrayList<Habitacion> getListaHabitaciones() {
+	public ArrayList<Habitacion> getListaHabitaciones() {
 		return listaHabitaciones;
 	}
 
-	public static void setListaHabitaciones(ArrayList<Habitacion> listaHabitaciones) {
+	public void setListaHabitaciones(ArrayList<Habitacion> listaHabitaciones) {
 		Sistema.listaHabitaciones = listaHabitaciones;
 	}
 
-	public static ArrayList<Medicamento> getListaMedicamentos() {
+	public ArrayList<Medicamento> getListaMedicamentos() {
 		return listaMedicamentos;
 	}
 
-	public static void setListaMedicamentos(ArrayList<Medicamento> listaMedicamentos) {
+	public void setListaMedicamentos(ArrayList<Medicamento> listaMedicamentos) {
 
 		Sistema.listaMedicamentos = listaMedicamentos;
 	}
 
-	public static Inventario getInventarioMedicamentos() {
+	public Inventario getInventarioMedicamentos() {
 		return inventarioMedicamentos;
 	}
 
@@ -116,11 +120,11 @@ public class Sistema implements Serializable{
 		Sistema.inventarioMedicamentos = inventarioMedicamentos;
 	}
 
-	public static ArrayList<Paciente> getListaPacientes() {
+	public ArrayList<Paciente> getListaPacientes() {
 		return listaPacientes;
 	}
 
-	public static void setListaPacientes(ArrayList<Paciente> listaPacientes) {
+	public void setListaPacientes(ArrayList<Paciente> listaPacientes) {
 		Sistema.listaPacientes = listaPacientes;
 	}
 
@@ -151,6 +155,7 @@ public class Sistema implements Serializable{
 		return posicion;// Si se devuelve -1 no se ha encontrado nada
 	}
 
+
 	public static int buscarMedicamentoNombre (String nombre) {
 		int posicion = -1;
 		for (int i = 0 ; i <listaMedicamentos.size();i++) {    //recorro el ArrayList
@@ -159,14 +164,13 @@ public class Sistema implements Serializable{
 				i=listaMedicamentos.size();	
 			} 
 		}
-		
 		return posicion;
 	}
 
 
 	public static void buscarMedicamento() {
-
 	}
+
 
 	public static void buscarUsuario() {
 
@@ -200,10 +204,12 @@ public class Sistema implements Serializable{
 	public static void añadirMedico (Medico a) {
 		listaMedicos.add(a);
 	}
-
+	
 	public static void añadirMedicamento (Medicamento a) {
 		listaMedicamentos.add(a);
 	}
+
+
 
 	public static void añadirEspecialidad (Especialidad a) {
 		listaEspecialidades.add(a);
@@ -213,6 +219,33 @@ public class Sistema implements Serializable{
 		listaHabitaciones.add(a);
 	}
 
+	
+	//Este método debe estar siempre en el main!!
+	public static void generarRegistrosDia () {
+		//Creamos la fecha de hoy
+		Date hoy = new Date();
+		//Primero comprobamos que no se haya creado ningún registro de ese día
+		Boolean done = false;
+		for (Medicamento m: listaMedicamentos) {
+			for (RegistroConsumo r: m.getListaRegistroConsumo()) {
+				if (r.getFechaConsumo().equals(hoy)) {
+					done =true;
+				}
+			}
+		}
+		//Si no se han creado registros ese día, recorremos la lista de medicamentos
+		if (done == false) {
+			for (Medicamento m: listaMedicamentos) {
+				//Para cada medicamento creamos un nuevo RegistroConsumo con la fecha actual
+				RegistroConsumo s = new RegistroConsumo();
+				s.setFechaConsumo(hoy);
+				//Añadimos el registro a la lista de registros del medicamento
+				m.añadirRegistroConsumo(s);
+			}
+		}
+		
+		
+	}
 
 
 	public static void logearse1() {
@@ -249,10 +282,17 @@ public class Sistema implements Serializable{
 
 	public static void main(String[] args) {
 
+		Scanner teclado= new Scanner (System.in);
+
+
 		/*	//Pruba buscar Paciente
 		listaPacientes= new ArrayList<Paciente>();
+<<<<<<< HEAD
 
 
+=======
+
+>>>>>>> branch 'master' of https://github.com/EvaAviles/Proyecto_gestion_Hospital.git
 		//Pruba buscar Paciente
 
 		//listaPacientes= new ArrayList<Paciente>();
@@ -262,24 +302,24 @@ public class Sistema implements Serializable{
 		//Paciente persona1= new Paciente ("Olga","Moreno", 12, 'M',1);
 		//listaPacientes.add(persona1);
 		//Paciente persona2= new Paciente ("Niza","Albo", 12, 'M',2);
+<<<<<<< HEAD
 
+=======
+
+		listaPacientes.add(persona2);
+
+
+>>>>>>> branch 'master' of https://github.com/EvaAviles/Proyecto_gestion_Hospital.git
 		//listaPacientes.add(persona2);
+<<<<<<< HEAD
 
 
+=======
+
+
+>>>>>>> branch 'master' of https://github.com/EvaAviles/Proyecto_gestion_Hospital.git
 
 		//Menú para buscar paciente; está a medio hacer, es solo de prueba, tengo que hacer un switch de casos bien hecho. 
-		/*switch() {
-		case  "nombre":
-			System.out.println("Introduzca el nombre que desea buscar: ");
-			nombre= teclado.nextLine();
-			System.out.println(buscarPaciente(nombre, "nombre"));
-			break;
-		case "apellido":
-			System.out.println("Introduzca el apellido que desea buscar: ");
-			apellido= teclado.nextLine();
-			System.out.println(buscarPaciente(apellido, "apellido"));
-			break;                                 
-		case "habitación":
 			System.out.println("Introduzca la habitación que desea buscar: ");
 			habitacion= teclado.nextInt();
 			System.out.println(buscarPaciente(Integer.toString(habitacion), "HABITACION"));
@@ -314,8 +354,8 @@ public class Sistema implements Serializable{
 
 		//exportarListas();
 
-		/*
-		//Prueba buscar paciente por dni
+
+		/*Prueba buscar paciente por dni
 		String dni;
 		System.out.println("Introduzca el dni que desea buscar: ");
 		Scanner teclado= new Scanner (System.in);
@@ -324,12 +364,23 @@ public class Sistema implements Serializable{
 		System.out.println(s.listaPacientes.size());
 		teclado.close();*/
 
-
-
-
 		//Prueba informe paciente - funciona :)
 		//f.importarPacientesPlantillaCSV("pacientesNuevos.csv",s);
 		//f.exportarInformePaciente(s.listaPacientes.get(0));
+
+		Sistema.m= new Medicamento();
+		m.crearListaMedicamentos();
+		//m.añadirMedicamento();
+
+
+		//Prueba buscar medicamento por nombre
+		/*String nombre;
+		System.out.println("Introduzca el medicamento: ");
+		nombre= teclado.nextLine();
+		m.verMedicamento(m.buscarMedicamento(nombre));*/
+		//System.out.println(m.buscarMedicamento(nombre));
+		teclado.close();
+
 
 	}
 
