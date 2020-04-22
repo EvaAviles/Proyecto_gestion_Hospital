@@ -92,7 +92,7 @@ public class ManejoFicheros implements Serializable {
 		return numEntero;
 	}
 
-	public static void importarPacientesPlantillaCSV (String ruta, Sistema s){//Se ha probado y funciona :)
+	public void importarPacientesPlantillaCSV (String ruta){//Se ha probado y funciona :)
 		//Leemos el fichero y lo guardamos en una matriz
 		String pacientes[][]= leerFicheroMatriz(ruta);
 		//Recorremos cada fila para crear instancias de cada paciente
@@ -122,7 +122,7 @@ public class ManejoFicheros implements Serializable {
 			p.setAntecedentesFamiliares(pacientes[i][12]);
 			p.setTelefono(pacientes[i][13]);
 			//Añadimos el paciente a la lista de pacientes
-			s.añadirPaciente(p);
+			Sistema.añadirPaciente(p);
 		}
 	}
 	//Escribir la matriz en un fichero
@@ -148,7 +148,7 @@ public class ManejoFicheros implements Serializable {
 			System.out.println("Mensaje de la excepción: " + ex.getMessage());
 		}
 	}
-	//Exportar informe paciente (en un csv) FALTA PROBAR!
+	//Exportar informe paciente (en un csv)
 	public void exportarInformePaciente(Paciente p) {
 		String datosPaciente[][] = new String[20][2];
 		//En el caso de POO -> datosPaciente[1][1] = get.nombrePaciente;
@@ -176,22 +176,22 @@ public class ManejoFicheros implements Serializable {
 		datosPaciente[2][1] = p.getApellido2();
 		datosPaciente[3][1] = p.getNombre();
 		datosPaciente[4][1] = p.getDni();
-		datosPaciente[5][1] = p.getFechaNacimiento();
+		datosPaciente[5][1] = (String)p.getFechaNacimiento();
 		datosPaciente[6][1] = p.getSexo();
-		datosPaciente[7][1] = p.getAltura();
-		datosPaciente[8][1] = p.getPeso();
+		String altura = p.getAltura()+"";
+		datosPaciente[7][1] = altura;
+		String peso = p.getPeso()+"";
+		datosPaciente[8][1] = peso;
 		datosPaciente[9][1] = p.getGrupoSanguineo();
 		datosPaciente[10][1] = p.getHistorialMedico();
-		datosPaciente[11][1] = p.getAlergias();
-		datosPaciente[12][1] = p.getObservaciones();
+		//datosPaciente[11][1] = p.getAlergias();
+		datosPaciente[12][1] = p.getObservacionesNotas();
 		datosPaciente[13][1] = p.getAntecedentesFamiliares();
 		datosPaciente[14][1] = p.getTelefono();
-		
 		//Falta completar los métodos de estas clases
 		//datosPaciente[15][1] = p.getEnfermero();
 		//datosPaciente[16][1] = p.getMedico();
 		//datosPaciente[17][1] = p.getHabitacion();
-		
 		String ruta = "Informe_" + p.getDni() + ".csv";
 		escribirMatrizFichero(ruta,datosPaciente); 
 	}
@@ -199,18 +199,18 @@ public class ManejoFicheros implements Serializable {
 	//Implementación de MEMORIA PERSISTENTE
 	
 	//Importar todas las listas
-	public static void importarListas(Sistema s) {
+	public static void importarListas() {
 		try {
-			importarListaPacientes(s);
-			importarListaAlergias(s);
-			importarListaEnfermeros(s);
-			importarListaUsuarios(s);
-			importarListaMedicos(s);
-			importarListaEspecialidades(s);
-			importarListaHabitaciones(s);
-			importarListaMedicamentos(s);
-			importarMedicoAdministrador(s);
-			importarInventario(s);
+			importarListaPacientes();
+			importarListaAlergias();
+			importarListaEnfermeros();
+			importarListaUsuarios();
+			importarListaMedicos();
+			importarListaEspecialidades();
+			importarListaHabitaciones();
+			importarListaMedicamentos();
+			importarMedicoAdministrador();
+			importarInventario();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -219,26 +219,26 @@ public class ManejoFicheros implements Serializable {
 	}
 	
 	//Exportar todas las listas
-	public static void exportarListas (Sistema s) {
-		exportarListaAlergias(s);
-		exportarListaEnfermeros(s);
-		exportarListaPacientes(s);
-		exportarListaUsuarios(s);
-		exportarListaMedicos(s);
-		exportarListaEspecialidades(s);
-		exportarListaHabitaciones(s);
-		exportarListaMedicamentos(s);
-		exportarInventario(s);
-		exportarMedicoAdministrador(s);
+	public static void exportarListas () {
+		exportarListaAlergias();
+		exportarListaEnfermeros();
+		exportarListaPacientes();
+		exportarListaUsuarios();
+		exportarListaMedicos();
+		exportarListaEspecialidades();
+		exportarListaHabitaciones();
+		exportarListaMedicamentos();
+		exportarInventario();
+		exportarMedicoAdministrador();
 	}
 	
 	//ListaPacientes
-	public static void exportarListaPacientes(Sistema s) {
+	public static void exportarListaPacientes() {
 		//Se rodea de un try-catch para gestionar los posibles errores
 		//Con ObjectOutputStream instanciamos un tipo de "scanner" para leer el fichero
 		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("listaPacientes.age"))){
 			//Recorremos nuestra lista de pacientes
-			for (Paciente o: s.getListaPacientes()) {
+			for (Paciente o: Sistema.listaPacientes) {
 				//Escribimos cada objeto en el fichero
 				oos.writeObject(o);
 			}
@@ -253,7 +253,7 @@ public class ManejoFicheros implements Serializable {
 		}
 	}
 
-	public static void importarListaPacientes(Sistema s) throws IOException, ClassNotFoundException{
+	public static void importarListaPacientes() throws IOException, ClassNotFoundException{
 		//Con ObjectInputStream instanciamos un tipo de "scanner" con el que leeremos el fichero
 		try(ObjectInputStream ois= new ObjectInputStream(new FileInputStream ("listaPacientes.age"))) {
 			//Creamos un paciente auxiliar
@@ -263,14 +263,15 @@ public class ManejoFicheros implements Serializable {
 				//En el paciente aux guardamos el objeto que leemos, le hacemos cast de Paciente
 				aux= (Paciente)ois.readObject();
 				//Añadimos el paciente a la lista
-				s.añadirPaciente(aux);
+				Sistema.añadirPaciente(aux);
 			}
 		} catch(EOFException ex){}	
 	}
+
 	//ListaAlergias
-	public static void exportarListaAlergias(Sistema s) {
+	public static void exportarListaAlergias() {
 		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("listaAlergias.age"))){
-			for (Alergia o: s.getListaAlergias()) {
+			for (Alergia o: Sistema.listaAlergias) {
 				oos.writeObject(o);
 			}
 			System.out.println("La lista de pacientes se ha guardado con éxito en la ruta: listaAlergias.age");
@@ -282,20 +283,20 @@ public class ManejoFicheros implements Serializable {
 		}
 	}
 
-	public static void importarListaAlergias(Sistema s) throws IOException, ClassNotFoundException{
+	public static void importarListaAlergias() throws IOException, ClassNotFoundException{
 		try(ObjectInputStream ois= new ObjectInputStream(new FileInputStream ("listaAlergias.age"))) {
 			Alergia aux;
 			while (true) {
 				aux= (Alergia)ois.readObject();
-				s.añadirAlergia(aux);
+				Sistema.añadirAlergia(aux);
 			}
 		} catch(EOFException ex){}	
 	}
 
 	//ListaEnfermeros
-	public static void exportarListaEnfermeros(Sistema s) {
+	public static void exportarListaEnfermeros() {
 		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("listaEnfermeros.age"))){
-			for (Enfermero o: s.getListaEnfermeros()) {
+			for (Enfermero o: Sistema.listaEnfermeros) {
 				oos.writeObject(o);
 			}
 			System.out.println("La lista de pacientes se ha guardado con éxito en la ruta: listaEnfermeros.age");
@@ -307,20 +308,20 @@ public class ManejoFicheros implements Serializable {
 		}
 	}
 
-	public static void importarListaEnfermeros(Sistema s) throws IOException, ClassNotFoundException{
+	public static void importarListaEnfermeros() throws IOException, ClassNotFoundException{
 		try(ObjectInputStream ois= new ObjectInputStream(new FileInputStream ("listaEnfermeros.age"))) {
 			Enfermero aux;
 			while (true) {
 				aux= (Enfermero)ois.readObject();
-				s.añadirEnfermero(aux);
+				Sistema.añadirEnfermero(aux);
 			}
 		} catch(EOFException ex){}	
 	}
 
 	//ListaUsuarios
-	public static void exportarListaUsuarios(Sistema s) {
+	public static void exportarListaUsuarios() {
 		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("listaUsuarios.age"))){
-			for (Usuario o: s.getListaUsuarios()) {
+			for (Usuario o: Sistema.listaUsuarios) {
 				oos.writeObject(o);
 			}
 			System.out.println("La lista de pacientes se ha guardado con éxito en la ruta: listaUsuarios.age");
@@ -332,20 +333,20 @@ public class ManejoFicheros implements Serializable {
 		}
 	}
 
-	public static void importarListaUsuarios(Sistema s) throws IOException, ClassNotFoundException{
+	public static void importarListaUsuarios() throws IOException, ClassNotFoundException{
 		try(ObjectInputStream ois= new ObjectInputStream(new FileInputStream ("listaUsuarios.age"))) {
 			Usuario aux;
 			while (true) {
 				aux= (Usuario)ois.readObject();
-				s.añadirUsuario(aux);
+				Sistema.añadirUsuario(aux);
 			}
 		} catch(EOFException ex){}	
 	}
 
 	//ListaMedicos
-	public static void exportarListaMedicos(Sistema s) {
+	public static void exportarListaMedicos() {
 		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("listaMedicos.age"))){
-			for (Medico o: s.getListaMedicos()) {
+			for (Medico o: Sistema.listaMedicos) {
 				oos.writeObject(o);
 			}
 			System.out.println("La lista de pacientes se ha guardado con éxito en la ruta: listaMedicos.age");
@@ -357,20 +358,20 @@ public class ManejoFicheros implements Serializable {
 		}
 	}
 
-	public static void importarListaMedicos(Sistema s) throws IOException, ClassNotFoundException{
+	public static void importarListaMedicos() throws IOException, ClassNotFoundException{
 		try(ObjectInputStream ois= new ObjectInputStream(new FileInputStream ("listaMedicos.age"))) {
 			Medico aux;
 			while (true) {
 				aux= (Medico)ois.readObject();
-				s.añadirMedico(aux);
+				Sistema.añadirMedico(aux);
 			}
 		} catch(EOFException ex){}	
 	}
 
 	//ListaEspecialidades
-	public static void exportarListaEspecialidades(Sistema s) {
+	public static void exportarListaEspecialidades() {
 		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("listaEspecialidades.age"))){
-			for (Especialidad o: s.getListaEspecialidades()) {
+			for (Especialidad o: Sistema.listaEspecialidades) {
 				oos.writeObject(o);
 			}
 			System.out.println("La lista de pacientes se ha guardado con éxito en la ruta: listaEspecialidades.age");
@@ -382,20 +383,20 @@ public class ManejoFicheros implements Serializable {
 		}
 	}
 
-	public static void importarListaEspecialidades(Sistema s) throws IOException, ClassNotFoundException{
+	public static void importarListaEspecialidades() throws IOException, ClassNotFoundException{
 		try(ObjectInputStream ois= new ObjectInputStream(new FileInputStream ("listaEspecialidades.age"))) {
 			Especialidad aux;
 			while (true) {
 				aux= (Especialidad)ois.readObject();
-				s.añadirEspecialidad(aux);
+				Sistema.añadirEspecialidad(aux);
 			}
 		} catch(EOFException ex){}	
 	}
 
 	//ListaHabitaciones
-	public static void exportarListaHabitaciones(Sistema s) {
+	public static void exportarListaHabitaciones() {
 		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("listaHabitaciones.age"))){
-			for (Habitacion o: s.getListaHabitaciones()) {
+			for (Habitacion o: Sistema.listaHabitaciones) {
 				oos.writeObject(o);
 			}
 			System.out.println("La lista de pacientes se ha guardado con éxito en la ruta: listaHabitaciones.age");
@@ -407,20 +408,20 @@ public class ManejoFicheros implements Serializable {
 		}
 	}
 
-	public static void importarListaHabitaciones(Sistema s) throws IOException, ClassNotFoundException{
+	public static void importarListaHabitaciones() throws IOException, ClassNotFoundException{
 		try(ObjectInputStream ois= new ObjectInputStream(new FileInputStream ("listaHabitaciones.age"))) {
 			Habitacion aux;
 			while (true) {
 				aux= (Habitacion)ois.readObject();
-				s.añadirHabitacion(aux);
+				Sistema.añadirHabitacion(aux);
 			}
 		} catch(EOFException ex){}	
 	}
 
 	//ListaMedicamentos
-	public static void exportarListaMedicamentos(Sistema s) {
+	public static void exportarListaMedicamentos() {
 		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("listaMedicamentos.age"))){
-			for (Medicamento o: s.getListaMedicamentos()) {
+			for (Medicamento o: Sistema.listaMedicamentos) {
 				oos.writeObject(o);
 			}
 			System.out.println("La lista de pacientes se ha guardado con éxito en la ruta: listaMedicamentos.age");
@@ -432,20 +433,20 @@ public class ManejoFicheros implements Serializable {
 		}
 	}
 
-	public static void importarListaMedicamentos(Sistema s) throws IOException, ClassNotFoundException{
+	public static void importarListaMedicamentos() throws IOException, ClassNotFoundException{
 		try(ObjectInputStream ois= new ObjectInputStream(new FileInputStream ("listaMedicamentos.age"))) {
 			Medicamento aux;
 			while (true) {
 				aux= (Medicamento)ois.readObject();
-				s.añadirMedicamento(aux);
+				Sistema.añadirMedicamento(aux);
 			}
 		} catch(EOFException ex){}	
 	}
 
 	//MedicoAdministrador
-	public static void exportarMedicoAdministrador(Sistema s) {
+	public static void exportarMedicoAdministrador() {
 		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("MedicoAdministrador.age"))){
-			oos.writeObject(s.getMedicoAdministrador());
+			oos.writeObject(Sistema.medicoAdministrador);
 			System.out.println("La información del médico administrador se ha guardado con éxito en la ruta: MedicoAdministrador.age");
 			oos.close();
 		} catch (FileNotFoundException e) {
@@ -455,19 +456,19 @@ public class ManejoFicheros implements Serializable {
 		}
 	}
 
-	public static void importarMedicoAdministrador(Sistema s) throws IOException, ClassNotFoundException{
+	public static void importarMedicoAdministrador() throws IOException, ClassNotFoundException{
 		try(ObjectInputStream ois= new ObjectInputStream(new FileInputStream ("MedicoAdministrador.age"))) {
 			while (true) {
 				MedicoAdministrador auxiliar = (MedicoAdministrador)ois.readObject();
-				s.setMedicoAdministrador(auxiliar);
+				Sistema.setMedicoAdministrador(auxiliar);
 			}
 		} catch(EOFException ex){}	
 	}
 	
 	//InventarioMedicamentos
-	public static void exportarInventario(Sistema s) {
+	public static void exportarInventario() {
 		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("InventarioMedicamentos.age"))){
-			oos.writeObject(s.getInventarioMedicamentos());
+			oos.writeObject(Sistema.inventarioMedicamentos);
 			System.out.println("El inventario de medicamentos se ha guardado con éxito en la ruta: InventarioMedicamentos.age");
 			oos.close();
 		} catch (FileNotFoundException e) {
@@ -477,12 +478,12 @@ public class ManejoFicheros implements Serializable {
 		}
 	}
 
-	public static void importarInventario(Sistema s) throws IOException, ClassNotFoundException{
+	public static void importarInventario() throws IOException, ClassNotFoundException{
 		try(ObjectInputStream ois= new ObjectInputStream(new FileInputStream ("InventarioMedicamentos.age"))) {
 
 			while (true) {
 				Inventario aux = (Inventario)ois.readObject();
-				s.setInventarioMedicamentos(aux);
+				Sistema.setInventarioMedicamentos(aux);
 			}
 		} catch(EOFException ex){}	
 	}

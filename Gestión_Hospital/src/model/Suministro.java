@@ -6,8 +6,8 @@ public class Suministro {
 
 	//Atributos
 	private Boolean suministro=false; //Por defecto el suministro no se ha realizado
-	private Date horaSuministro;
-	private Date fechaSuministro;
+	private Date fechaSuministroR;//Es la fecha en la que se ha realizado el suministro
+	private Date fechaSuministroL;//Es la fecha en la que se debe realizar el suministro
 
 	//Relaciones
 	private Unidad unidad;
@@ -24,21 +24,22 @@ public class Suministro {
 		this.suministro = suministro;
 	}
 
-	public Date getHoraSuministro() {
-		return horaSuministro;
-	}
-
-	public void setHoraSuministro(Date horaSuministro) {
-		this.horaSuministro = horaSuministro;
-	}
-
-	public Date getFechaSuministro() {
-		return fechaSuministro;
+	public Date getFechaSuministroR() {
+		return fechaSuministroR;
 	}
 
 	public void setFechaSuministro(Date fechaSuministro) {
-		this.fechaSuministro = fechaSuministro;
+		this.fechaSuministroR = fechaSuministro;
 	}
+	
+	public Date getFechaSuministroL() {
+		return fechaSuministroL;
+	}
+
+	public void setFechaSuministroL(Date fechaSuministroL) {
+		this.fechaSuministroL = fechaSuministroL;
+	}
+
 
 	public Unidad getUnidad() {
 		return unidad;
@@ -72,8 +73,23 @@ public class Suministro {
 		this.paciente = paciente;
 	}
 	
+	public void crearSuministro (Date fechaSuministroL, Unidad unidad, Receta receta, Paciente paciente) {
+		//Asignamos el paciente
+		setPaciente(paciente);
+		//Asignamos el enfermero
+		setEnfermero(paciente.getEnfermero());//Asignaremos el enfermero asociado a ese paciente :)
+		//Asignamos la receta
+		setReceta(receta);
+		//Asignamos la unidad
+		setUnidad(unidad);
+		//Asignamos la fechaSuministroL
+		setFechaSuministroL(fechaSuministroL);
+	}
+	
 	//Métodos
 	public static void suministrarUnidad() {
-
+		
+		
+		//setSuministro(true);
 	}
 }

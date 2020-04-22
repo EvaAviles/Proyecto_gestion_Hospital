@@ -46,5 +46,9 @@ public class Medico extends Usuario implements Serializable{
 		super(login, password);
 		
 	}
+	
+	public static void recetarMedicamento() {
+		
+	}
 
 }
