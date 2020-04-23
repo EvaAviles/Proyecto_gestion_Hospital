@@ -1,6 +1,7 @@
 package control;
 
 import model.Alergia;
+import model.Correo;
 import model.Enfermero;
 import model.Especialidad;
 import model.Habitacion;
@@ -367,7 +368,7 @@ public class Sistema implements Serializable{
 		m.verMedicamento(m.buscarMedicamento(nombre));*/
 		//System.out.println(m.buscarMedicamento(nombre));
 		
-		
+	
 		teclado.close();
 
 
