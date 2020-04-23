@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
+
+import control.Sistema;
 public class Medicamento implements Serializable{
 
 	//ID Memoria Persistente
@@ -22,7 +24,10 @@ public class Medicamento implements Serializable{
 	private ArrayList <RegistroConsumo> listaRegistroConsumo= new ArrayList<>();
 	private EstadísticaMedicamentos estadistica;
 	private ArrayList <Alergia> listaAlergias= new ArrayList<>();
-	private static  ArrayList <Medicamento> listaMedicamentos= new ArrayList<>();
+	private Sistema sistema;
+	private Medicamento(Sistema s) {
+		this.sistema=sistema;
+	}
 
 	public Medicamento(String nombre, int stockDeseado, int stockDisponible, double precioUnidad, String dosis) {
 
@@ -33,18 +38,24 @@ public class Medicamento implements Serializable{
 		this.dosis=dosis;
 
 	}
-	
+	public String nombreMasyusculas(String nombre) {
+		char[]caracteres=nombre.toCharArray();
+		caracteres[0]=Character.toUpperCase(caracteres[0]);
+		return new String (caracteres);
+	}
+
 
 	@Override
 	public String toString() {
-		return "Medicamento: " + nombre + "\nStockDeseado: " + stockDeseado + ", StockDisponible: "
+		return "Medicamento: " + nombreMasyusculas(nombre) + "\nStockDeseado: " + stockDeseado + ", StockDisponible: "
 				+ stockDisponible + ", Precio por unidad: " + precioUnidad + ", Dosis por unidad: " + dosis + ".";
 	}
 
+
 	//Getters y setters
-	
+
 	public Medicamento() {
-		
+
 	}
 	public String getNombre() {
 		return nombre;
@@ -119,33 +130,6 @@ public class Medicamento implements Serializable{
 		listaUnidades.add(a);
 	}
 
-	//Métodos
-	public void crearListaMedicamentos() {		
-		//Creo la lista de medicamentos. 10 medicamentos sólo para empezar.
-		//Medicamento nombreMedicamento= new Medicamento(nombre, stockDeseado, stockDisposible, precioUnidad, dosis)
-
-		Medicamento Nolotil= new Medicamento("nolotil", 20000,100000,2.26, "575mg");  
-		Medicamento Enantyum= new Medicamento("enantyum", 20000,80000, 4, "25mg");
-		Medicamento Paracetamol= new Medicamento("paracetamol",20000, 200000, 2.5, "1g");
-		Medicamento Eutirox= new Medicamento("eutirox", 20000, 330000, 4.33, "0,1mg");
-		Medicamento Ventolin= new Medicamento("ventolin", 20000, 100000, 2.59, "0,1mg");
-		Medicamento Ibuprofeno=new Medicamento ("ibuprofeno", 20000, 80000, 1.97, "600mg");
-		Medicamento Trankimazin= new Medicamento("trankimazin", 20000, 0, 4.84, "2mg"); //bajo el stock deseado
-		Medicamento Orfidal= new Medicamento ("orfidal", 20000, 180000, 1.72, "1mg");
-		Medicamento Adiro =new Medicamento("adiro", 20000, 135000, 1.45, "100mg"); 
-		Medicamento Sintrom= new Medicamento("sintrom", 20000, 70000, 2.33, "4mg");
-
-		Medicamento.listaMedicamentos.add(Nolotil);
-		Medicamento.listaMedicamentos.add(Enantyum);
-		Medicamento.listaMedicamentos.add(Paracetamol);
-		Medicamento.listaMedicamentos.add(Eutirox);
-		Medicamento.listaMedicamentos.add(Ventolin);
-		Medicamento.listaMedicamentos.add(Ibuprofeno);
-		Medicamento.listaMedicamentos.add(Trankimazin);
-		Medicamento.listaMedicamentos.add(Orfidal);
-		Medicamento.listaMedicamentos.add(Adiro);
-		Medicamento.listaMedicamentos.add(Sintrom);		
-	}
 
 	public Boolean comprobarAlergías (Paciente p) {//Funciona correctamente
 		Boolean coincidencia = false;
@@ -194,7 +178,7 @@ public class Medicamento implements Serializable{
 		return listaUnidades.get(posicion);//Devolvemos esa unidad
 	}
 
-	
+
 	public static void avisoCaducidad() {
 
 	}
@@ -204,10 +188,9 @@ public class Medicamento implements Serializable{
 
 		int posicion=-1; //inicializo la variable a -1, para que si me da este valor sepa que algo va mal
 
-		for (int i = 0 ; i <listaMedicamentos.size();i++) {    //recorro el ArrayList
-			if(nombre.toLowerCase().equals(listaMedicamentos.get(i).getNombre())) {    //si el nombre del medicamento buscado es igual a alguno del array, 
+		for (int i = 0 ; i <sistema.listaMedicamentos.size();i++) {    //recorro el ArrayList
+			if(nombre.toLowerCase().equals(sistema.listaMedicamentos.get(i).getNombre())) {    //si el nombre del medicamento buscado es igual a alguno del array, 
 				posicion=i;                                                            //me da la posición de donde esté en mi lista de medicamentos  
-				i=listaMedicamentos.size();
 			} 
 		} if (posicion==-1) {
 			System.out.println("Lo siento, pero no se encuentra este medicamento");
@@ -216,7 +199,7 @@ public class Medicamento implements Serializable{
 	}
 
 	public void verMedicamento(int posicionArray){
-		System.out.println(listaMedicamentos.get(posicionArray).toString()); //Imprimo el medicamento buscado con mi método to String
+		System.out.println(sistema.listaMedicamentos.get(posicionArray).toString()); //Imprimo el medicamento buscado con mi método to String
 		//al get le doy como parámetro la posición del medicamento que se ha buscado
 		if (posicionArray==-1) {
 			System.out.println("Lo siento, pero no se encuentra este medicamento");
@@ -254,7 +237,7 @@ public class Medicamento implements Serializable{
 			teclado.nextLine();
 
 		} while (!respuesta.equals("si"));
-		listaMedicamentos.add(m); 			//Si la respuesta es si, el medicamento se añadirá en la lista de medicamentos.  
+		sistema.listaMedicamentos.add(m); 			//Si la respuesta es si, el medicamento se añadirá en la lista de medicamentos.  
 		teclado.close();
 	}
 
@@ -279,10 +262,8 @@ public class Medicamento implements Serializable{
 			}
 		}while(!respuesta.equals("no"));
 	}*/
-	
-	public static void borrarMedicamento() {
 
-	}
+	
 	public static void añadirStock() {
 
 	}
@@ -292,18 +273,18 @@ public class Medicamento implements Serializable{
 	public static void añadirUnidades() {
 
 	}
-	
-	public static void avisoBajoStock() {
-		
-		for(int i=0; i<listaMedicamentos.size();i++) {
-			
-			if(listaMedicamentos.get(i).getStockDisponible()< 
-					listaMedicamentos.get(i).getStockDeseado()) {
-				
-				System.out.print("AVISO IMPORTANTE el fármaco "+ listaMedicamentos.get(i).getNombre().toString()
+
+	public void avisoBajoStock() {
+
+		for(int i=0; i<sistema.listaMedicamentos.size();i++) {
+
+			if(sistema.listaMedicamentos.get(i).getStockDisponible()< 
+					sistema.listaMedicamentos.get(i).getStockDeseado()) {
+
+				System.out.print("AVISO IMPORTANTE el fármaco "+ sistema.listaMedicamentos.get(i).getNombre().toString()
 						+" está "+ "por debajo del stock deseado le recomendamos que lo reponga urgentemente");
 			}
 		}
 	}
-	
+
 }
