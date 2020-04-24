@@ -151,7 +151,6 @@ public class Sistema implements Serializable{
 		return posicion;// Si se devuelve -1 no se ha encontrado nada
 	}
 
-
 	public static int buscarMedicamentoNombre (String nombre) {
 		int posicion = -1;
 		for (int i = 0 ; i <listaMedicamentos.size();i++) {    //recorro el ArrayList
@@ -162,7 +161,6 @@ public class Sistema implements Serializable{
 		}
 		return posicion;
 	}
-
 
 	public static void buscarMedicamento() {
 	}
@@ -281,12 +279,6 @@ public class Sistema implements Serializable{
 
 		/*	//Pruba buscar Paciente
 		listaPacientes= new ArrayList<Paciente>();
-<<<<<<< HEAD
-
-
-=======
-
->>>>>>> branch 'master' of https://github.com/EvaAviles/Proyecto_gestion_Hospital.git
 		//Pruba buscar Paciente
 
 		//listaPacientes= new ArrayList<Paciente>();
