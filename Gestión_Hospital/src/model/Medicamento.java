@@ -24,10 +24,7 @@ public class Medicamento implements Serializable{
 	private ArrayList <RegistroConsumo> listaRegistroConsumo= new ArrayList<>();
 	private EstadísticaMedicamentos estadistica;
 	private ArrayList <Alergia> listaAlergias= new ArrayList<>();
-	private Sistema sistema;
-	private Medicamento(Sistema s) {
-		this.sistema=sistema;
-	}
+
 
 	public Medicamento(String nombre, int stockDeseado, int stockDisponible, double precioUnidad, String dosis) {
 
@@ -36,8 +33,11 @@ public class Medicamento implements Serializable{
 		this.stockDisponible=stockDisponible;
 		this.precioUnidad= precioUnidad;
 		this.dosis=dosis;
+		
+		//Se deben crear las unidades con esa fecha de caducidad!!!
 
 	}
+	
 	public String nombreMasyusculas(String nombre) {
 		char[]caracteres=nombre.toCharArray();
 		caracteres[0]=Character.toUpperCase(caracteres[0]);
@@ -188,8 +188,8 @@ public class Medicamento implements Serializable{
 
 		int posicion=-1; //inicializo la variable a -1, para que si me da este valor sepa que algo va mal
 
-		for (int i = 0 ; i <sistema.listaMedicamentos.size();i++) {    //recorro el ArrayList
-			if(nombre.toLowerCase().equals(sistema.listaMedicamentos.get(i).getNombre())) {    //si el nombre del medicamento buscado es igual a alguno del array, 
+		for (int i = 0 ; i <Sistema.listaMedicamentos.size();i++) {    //recorro el ArrayList
+			if(nombre.toLowerCase().equals(Sistema.listaMedicamentos.get(i).getNombre())) {    //si el nombre del medicamento buscado es igual a alguno del array, 
 				posicion=i;                                                            //me da la posición de donde esté en mi lista de medicamentos  
 			} 
 		} if (posicion==-1) {
@@ -276,12 +276,12 @@ public class Medicamento implements Serializable{
 
 	public void avisoBajoStock() {
 
-		for(int i=0; i<sistema.listaMedicamentos.size();i++) {
+		for(int i=0; i<Sistema.listaMedicamentos.size();i++) {
 
-			if(sistema.listaMedicamentos.get(i).getStockDisponible()< 
-					sistema.listaMedicamentos.get(i).getStockDeseado()) {
+			if(Sistema.listaMedicamentos.get(i).getStockDisponible()< 
+					Sistema.listaMedicamentos.get(i).getStockDeseado()) {
 
-				System.out.print("AVISO IMPORTANTE el fármaco "+ sistema.listaMedicamentos.get(i).getNombre().toString()
+				System.out.print("AVISO IMPORTANTE el fármaco "+ Sistema.listaMedicamentos.get(i).getNombre().toString()
 						+" está "+ "por debajo del stock deseado le recomendamos que lo reponga urgentemente");
 			}
 		}
