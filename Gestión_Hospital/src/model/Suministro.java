@@ -2,12 +2,14 @@ package model;
 
 import java.util.Date;
 
-public class Suministro {
+public class Suministro implements Comparable<Suministro>{
 
 	//Atributos
 	private Boolean suministro=false; //Por defecto el suministro no se ha realizado
 	private Date fechaSuministroR;//Es la fecha en la que se ha realizado el suministro
 	private Date fechaSuministroL;//Es la fecha en la que se debe realizar el suministro
+	private int id;
+
 
 	//Relaciones
 	private Unidad unidad;
@@ -73,6 +75,21 @@ public class Suministro {
 		this.paciente = paciente;
 	}
 	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setFechaSuministroR(Date fechaSuministroR) {
+		this.fechaSuministroR = fechaSuministroR;
+	}
+	
+	//Métodos
+	
 	public void crearSuministro (Date fechaSuministroL, Unidad unidad, Receta receta, Paciente paciente) {
 		//Asignamos el paciente
 		setPaciente(paciente);
@@ -84,17 +101,36 @@ public class Suministro {
 		setUnidad(unidad);
 		//Asignamos la fechaSuministroL
 		setFechaSuministroL(fechaSuministroL);
+		
 	}
 	
 	//Métodos
 	public static void suministrarUnidad() {
 		//Cuando se suministra la unidad, se borra la unidad, ya que ya no nos hace falta
-	
+		//Le pedimos al enfermero el id del suministro
+		
 		
 		//setSuministro(true);
 		//Se debe eliminar la unidad de la lista de unidades
+		//m.eliminarUnidad(le pasas aquí el suministro);
 		//Lo que ocurre también, es que debemos contabilizar ese consumo en el día específico
 		//Para ello hacemos uso de la clase RegistroConsumo
 		
+	}
+	
+	public String toString() {
+		return "ID: "+id + "/ Fecha Suministro: "+fechaSuministroL+"/ Paciente: "+getPaciente().getDni()+"/ Habitación: "+ getPaciente().getHabitacionActual();
+	}
+
+	@Override
+	public int compareTo(Suministro o) {
+			if (getFechaSuministroL().after(o.getFechaSuministroL())) {
+				return -1;
+			}else if(getFechaSuministroL().before(o.getFechaSuministroL())) {
+				return 1;
+			}else {//Son iguales
+				return 0;
+			}
+		return 0;
 	}
 }

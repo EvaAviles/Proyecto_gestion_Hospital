@@ -34,8 +34,8 @@ public class Medicamento implements Serializable{
 		this.precioUnidad= precioUnidad;
 		this.dosis=dosis;
 		
-		//Se deben crear las unidades con esa fecha de caducidad!!!
-
+		//Se deben crear las unidades con esa fecha de caducidad!!!, así que le tenemos que pedir la fecha de caducidad de 
+		//las unidades que introduce
 	}
 	
 	public String nombreMasyusculas(String nombre) {
@@ -49,6 +49,10 @@ public class Medicamento implements Serializable{
 	public String toString() {
 		return "Medicamento: " + nombreMasyusculas(nombre) + "\nStockDeseado: " + stockDeseado + ", StockDisponible: "
 				+ stockDisponible + ", Precio por unidad: " + precioUnidad + ", Dosis por unidad: " + dosis + ".";
+	}
+	
+	public void eliminarUnidad(Unidad u) {
+		this.listaUnidades.remove(u);
 	}
 
 
@@ -199,7 +203,7 @@ public class Medicamento implements Serializable{
 	}
 
 	public void verMedicamento(int posicionArray){
-		System.out.println(sistema.listaMedicamentos.get(posicionArray).toString()); //Imprimo el medicamento buscado con mi método to String
+		System.out.println(Sistema.listaMedicamentos.get(posicionArray).toString()); //Imprimo el medicamento buscado con mi método to String
 		//al get le doy como parámetro la posición del medicamento que se ha buscado
 		if (posicionArray==-1) {
 			System.out.println("Lo siento, pero no se encuentra este medicamento");
@@ -237,7 +241,7 @@ public class Medicamento implements Serializable{
 			teclado.nextLine();
 
 		} while (!respuesta.equals("si"));
-		sistema.listaMedicamentos.add(m); 			//Si la respuesta es si, el medicamento se añadirá en la lista de medicamentos.  
+		Sistema.listaMedicamentos.add(m); //Si la respuesta es si, el medicamento se añadirá en la lista de medicamentos.  
 		teclado.close();
 	}
 

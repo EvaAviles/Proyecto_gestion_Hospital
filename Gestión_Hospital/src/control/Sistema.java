@@ -10,14 +10,12 @@ import model.Medicamento;
 import model.Medico;
 import model.MedicoAdministrador;
 import model.Paciente;
+import model.Receta;
 import model.RegistroConsumo;
 import model.Usuario;
-
-import java.awt.Image;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 
@@ -39,7 +37,6 @@ public class Sistema implements Serializable{
 	public static ArrayList <Medicamento> listaMedicamentos= new ArrayList<>();
 	public static Inventario inventarioMedicamentos;
 	public static ArrayList <Paciente>listaPacientes=new ArrayList<>();
-
 
 	//Getters y setters
 	public ArrayList<Alergia> getListaAlergias() {
@@ -156,13 +153,14 @@ public class Sistema implements Serializable{
 
 	public static int buscarMedicamentoNombre (String nombre) {
 		int posicion = -1;
+		nombre.toUpperCase();
 		for (int i = 0 ; i <listaMedicamentos.size();i++) {    //recorro el ArrayList
-			if(nombre.equals(listaMedicamentos.get(i).getNombre())) {    //si el dni es igual a alguno del array, me da la posición
+			if(nombre.equals(listaMedicamentos.get(i).getNombre().toUpperCase())) {    //si el dni es igual a alguno del array, me da la posición
 				posicion=i;
 				i=listaMedicamentos.size();	
 			} 
 		}
-		return posicion;
+		return posicion;// si es -1, no ha encontrado nada
 	}
 
 	//Métodos
@@ -337,8 +335,8 @@ public class Sistema implements Serializable{
 
 		//Prueba calcular edad a partir de la fecha de nacimiento
 
-		Medicamento m= new Medicamento();
-		Sistema.crearListaMedicamentos();
+		//Medicamento m= new Medicamento();
+		//Sistema.crearListaMedicamentos();
 
 		//Prueba calcular edad a partir de la fecha de nacimiento
 
@@ -355,7 +353,7 @@ public class Sistema implements Serializable{
 
 		//	importarPacientesPlantillaCSV("pacientesNuevos.csv");
 		//importarPacientesPlantillaCSV("pacientesNuevos.csv", s);
-		fichero.exportarListaMedicamentos();
+		//fichero.exportarListaMedicamentos();
 
 		//Prueba importar pacientes memoria persistente
 		//exportarListaPacientes("listaPacientes.age");
@@ -391,19 +389,26 @@ public class Sistema implements Serializable{
 		logearse1();*/
 
 		//Prueba buscar medicamento por nombre
-		String nombre;
-		System.out.println("Introduzca el medicamento: ");
-		nombre= teclado.next();
+		//String nombre;
+		//System.out.println("Introduzca el medicamento: ");
+		//nombre= teclado.next();
 
 		//listaMedicamentos.remove(m.buscarMedicamento(nombre));
 		/*Iterator repetir=listaMedicamentos.iterator();
 		while(repetir.hasNext()) {
 			System.out.println(repetir.next());
 		}*/
-		m.verMedicamento(m.buscarMedicamento(nombre));
+		//m.verMedicamento(m.buscarMedicamento(nombre));
+		//teclado.close();
+		
+		//Pruebas RECETAR
+		Paciente p = new Paciente("Paco");
+		Medico med = new Medico("123","patitoInglés");
+		Enfermero e = new Enfermero("qw","hdj");
+		Receta r= new Receta();
+		r.crearReceta(med, p);
+		
 		teclado.close();
-
-
 	}
 
 }
