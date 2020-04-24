@@ -358,7 +358,7 @@ public class ManejoFicheros implements Serializable {
 		}
 	}
 
-	public static void importarListaMedicos() throws IOException, ClassNotFoundException{
+	public void importarListaMedicos() throws IOException, ClassNotFoundException{
 		try(ObjectInputStream ois= new ObjectInputStream(new FileInputStream ("listaMedicos.age"))) {
 			Medico aux;
 			while (true) {
@@ -369,7 +369,7 @@ public class ManejoFicheros implements Serializable {
 	}
 
 	//ListaEspecialidades
-	public static void exportarListaEspecialidades() {
+	public void exportarListaEspecialidades() {
 		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("listaEspecialidades.age"))){
 			for (Especialidad o: Sistema.listaEspecialidades) {
 				oos.writeObject(o);
@@ -383,7 +383,7 @@ public class ManejoFicheros implements Serializable {
 		}
 	}
 
-	public static void importarListaEspecialidades() throws IOException, ClassNotFoundException{
+	public void importarListaEspecialidades() throws IOException, ClassNotFoundException{
 		try(ObjectInputStream ois= new ObjectInputStream(new FileInputStream ("listaEspecialidades.age"))) {
 			Especialidad aux;
 			while (true) {
@@ -394,7 +394,7 @@ public class ManejoFicheros implements Serializable {
 	}
 
 	//ListaHabitaciones
-	public static void exportarListaHabitaciones() {
+	public void exportarListaHabitaciones() {
 		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("listaHabitaciones.age"))){
 			for (Habitacion o: Sistema.listaHabitaciones) {
 				oos.writeObject(o);
@@ -408,7 +408,7 @@ public class ManejoFicheros implements Serializable {
 		}
 	}
 
-	public static void importarListaHabitaciones() throws IOException, ClassNotFoundException{
+	public void importarListaHabitaciones() throws IOException, ClassNotFoundException{
 		try(ObjectInputStream ois= new ObjectInputStream(new FileInputStream ("listaHabitaciones.age"))) {
 			Habitacion aux;
 			while (true) {
@@ -419,7 +419,7 @@ public class ManejoFicheros implements Serializable {
 	}
 
 	//ListaMedicamentos
-	public static void exportarListaMedicamentos() {
+	public void exportarListaMedicamentos() {
 		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("listaMedicamentos.age"))){
 			for (Medicamento o: Sistema.listaMedicamentos) {
 				oos.writeObject(o);
@@ -433,7 +433,7 @@ public class ManejoFicheros implements Serializable {
 		}
 	}
 
-	public static void importarListaMedicamentos() throws IOException, ClassNotFoundException{
+	public void importarListaMedicamentos() throws IOException, ClassNotFoundException{
 		try(ObjectInputStream ois= new ObjectInputStream(new FileInputStream ("listaMedicamentos.age"))) {
 			Medicamento aux;
 			while (true) {

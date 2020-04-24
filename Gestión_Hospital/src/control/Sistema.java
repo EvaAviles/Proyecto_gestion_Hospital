@@ -1,6 +1,7 @@
 package control;
 
 import model.Alergia;
+import model.Correo;
 import model.Enfermero;
 import model.Especialidad;
 import model.Habitacion;
@@ -11,9 +12,12 @@ import model.MedicoAdministrador;
 import model.Paciente;
 import model.RegistroConsumo;
 import model.Usuario;
+
+import java.awt.Image;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 
@@ -34,10 +38,8 @@ public class Sistema implements Serializable{
 	public static ArrayList <Habitacion> listaHabitaciones= new ArrayList<>();
 	public static ArrayList <Medicamento> listaMedicamentos= new ArrayList<>();
 	public static Inventario inventarioMedicamentos;
-	public static ArrayList <Paciente>listaPacientes=new ArrayList<>();//
-	
-	//Esto tampoco tiene sentido
-	private static Medicamento m;
+	public static ArrayList <Paciente>listaPacientes=new ArrayList<>();
+
 
 	//Getters y setters
 	public ArrayList<Alergia> getListaAlergias() {
@@ -151,6 +153,7 @@ public class Sistema implements Serializable{
 		return posicion;// Si se devuelve -1 no se ha encontrado nada
 	}
 
+
 	public static int buscarMedicamentoNombre (String nombre) {
 		int posicion = -1;
 		for (int i = 0 ; i <listaMedicamentos.size();i++) {    //recorro el ArrayList
@@ -160,6 +163,34 @@ public class Sistema implements Serializable{
 			} 
 		}
 		return posicion;
+	}
+
+	//Métodos
+	public static void crearListaMedicamentos() {		
+		//Creo la lista de medicamentos. 10 medicamentos sólo para empezar.
+		//Medicamento nombreMedicamento= new Medicamento(nombre, stockDeseado, stockDisposible, precioUnidad, dosis)
+
+		Medicamento Nolotil= new Medicamento("nolotil", 20000,100000,2.26, "575mg");  
+		Medicamento Enantyum= new Medicamento("enantyum", 20000,80000, 4, "25mg");
+		Medicamento Paracetamol= new Medicamento("paracetamol",20000, 200000, 2.5, "1g");
+		Medicamento Eutirox= new Medicamento("eutirox", 20000, 330000, 4.33, "0,1mg");
+		Medicamento Ventolin= new Medicamento("ventolin", 20000, 100000, 2.59, "0,1mg");
+		Medicamento Ibuprofeno=new Medicamento ("ibuprofeno", 20000, 80000, 1.97, "600mg");
+		Medicamento Trankimazin= new Medicamento("trankimazin", 20000, 0, 4.84, "2mg"); //bajo el stock deseado
+		Medicamento Orfidal= new Medicamento ("orfidal", 20000, 180000, 1.72, "1mg");
+		Medicamento Adiro =new Medicamento("adiro", 20000, 135000, 1.45, "100mg"); 
+		Medicamento Sintrom= new Medicamento("sintrom", 20000, 70000, 2.33, "4mg");
+
+		listaMedicamentos.add(Nolotil);
+		listaMedicamentos.add(Enantyum);
+		listaMedicamentos.add(Paracetamol);
+		listaMedicamentos.add(Eutirox);
+		listaMedicamentos.add(Ventolin);
+		listaMedicamentos.add(Ibuprofeno);
+		listaMedicamentos.add(Trankimazin);
+		listaMedicamentos.add(Orfidal);
+		listaMedicamentos.add(Adiro);
+		listaMedicamentos.add(Sintrom);		
 	}
 
 	public static void buscarMedicamento() {
@@ -198,7 +229,7 @@ public class Sistema implements Serializable{
 	public static void añadirMedico (Medico a) {
 		listaMedicos.add(a);
 	}
-	
+
 	public static void añadirMedicamento (Medicamento a) {
 		listaMedicamentos.add(a);
 	}
@@ -213,7 +244,7 @@ public class Sistema implements Serializable{
 		listaHabitaciones.add(a);
 	}
 
-	
+
 	//Este método debe estar siempre en el main!!
 	public static void generarRegistrosDia () {
 		//Creamos la fecha de hoy
@@ -237,21 +268,22 @@ public class Sistema implements Serializable{
 				m.añadirRegistroConsumo(s);
 			}
 		}
-		
-		
+
+
 	}
-	
+
 	public static void logearse1() {
 
 		String pass=""; //La inicializamos en nula
 		String usuario="";
-		
+
 		//Con un bucle buscamos la contraseña y usuario
 		boolean acceso=false;
 		while(acceso==false) { //Mientras q no sean correctos los datos no acaba el bucle
 			//Aparecen mis ventanas para escribir usuario y contraseña
 			usuario=JOptionPane.showInputDialog("Usuario: ");
 			pass=JOptionPane.showInputDialog("Password: ");
+
 			//Recorro mi listaUsuarios para saber si coinciden
 			for (int i=0; i<listaUsuarios.size(); i++) {
 				if(usuario.equals(listaUsuarios.get(i).getLogin()) &&
@@ -261,8 +293,8 @@ public class Sistema implements Serializable{
 					acceso=true;
 				}else {
 					//Sige mi bucle e imprimo mensajito
-					acceso=false;
 					JOptionPane.showMessageDialog(null, "El usuario o contraseña no coinciden");
+
 				}
 			}
 		}
@@ -271,9 +303,9 @@ public class Sistema implements Serializable{
 
 	//MAIN
 
-
 	public static void main(String[] args) {
 
+		ManejoFicheros fichero = new ManejoFicheros();
 		Scanner teclado= new Scanner (System.in);
 
 
@@ -304,6 +336,12 @@ public class Sistema implements Serializable{
 
 
 		//Prueba calcular edad a partir de la fecha de nacimiento
+
+		Medicamento m= new Medicamento();
+		Sistema.crearListaMedicamentos();
+
+		//Prueba calcular edad a partir de la fecha de nacimiento
+
 		/*p1.setFechaNacimiento("13/04/2010");
 		p1.actualizarEdad();
 		System.out.println("Edad: "+ p1.getEdad());
@@ -314,9 +352,10 @@ public class Sistema implements Serializable{
 		//PRUEBAS MEMORIA PERSISTENTE - DE MOMENTO FUNCIONA CON TODO LO QUE SE GUARDA EN SISTEMA.JAVA :)
 		//Prueba importar Pacientes desde una plantilla csv.
 
-		//	importarPacientesPlantillaCSV("pacientesNuevos.csv");
 
+		//	importarPacientesPlantillaCSV("pacientesNuevos.csv");
 		//importarPacientesPlantillaCSV("pacientesNuevos.csv", s);
+		fichero.exportarListaMedicamentos();
 
 		//Prueba importar pacientes memoria persistente
 		//exportarListaPacientes("listaPacientes.age");
@@ -342,28 +381,30 @@ public class Sistema implements Serializable{
 		//f.importarPacientesPlantillaCSV("pacientesNuevos.csv",s);
 		//f.exportarInformePaciente(s.listaPacientes.get(0));
 
-		Sistema.m= new Medicamento();
-		m.crearListaMedicamentos();
-		
+
+
 		//Prueba usuario, login
-		Usuario u = new Usuario ("123","123");
+		/*Usuario u = new Usuario ("123","123");
 		Usuario p = new Usuario ("222a","123");
 		añadirUsuario(u);
 		añadirUsuario(p);
-		logearse1();
-		
-		//m.añadirMedicamento();
-
+		logearse1();*/
 
 		//Prueba buscar medicamento por nombre
-		/*String nombre;
+		String nombre;
 		System.out.println("Introduzca el medicamento: ");
-		nombre= teclado.nextLine();
-		m.verMedicamento(m.buscarMedicamento(nombre));*/
-		//System.out.println(m.buscarMedicamento(nombre));
+		nombre= teclado.next();
+
+		//listaMedicamentos.remove(m.buscarMedicamento(nombre));
+		/*Iterator repetir=listaMedicamentos.iterator();
+		while(repetir.hasNext()) {
+			System.out.println(repetir.next());
+		}*/
+		m.verMedicamento(m.buscarMedicamento(nombre));
 		teclado.close();
 
 
 	}
 
 }
+
